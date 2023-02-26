@@ -1,33 +1,110 @@
+[VarDef, $tool_path_loaded, ""]
+
+[VarDef, $tool_list(20)]
+
+[VarDef, toolListFile, "$tool_list.zvr"]
+
+/** saveToolPath
+  *
+  */
+[RoutineDef, saveToolPath
+,
+	//[VarDef, $tool_list(20)]//file path/name
+	
+	[VarSet, $tool_list(1), $tool_path]
+	
+	[VarSave, $tool_list, toolListFile ]			
+
+	[Note, $tool_path ]
+	
+, // PARAMS
+	$tool_path
+]
+
+/** loadToolPath
+  *
+  */
+[RoutineDef, loadToolPath
+,
+	//[VarDef, $tool_list(20)]//file path/name
+	
+	[VarLoad, $tool_list, toolListFile]			
+
+	[VarSet, $tool_path_loaded, [Var, $tool_list(1) ] ]
+	
+	//[Note, $tool_path_loaded ]
+//, // PARAMS
+	//$tool_path_loaded
+]
 
 
 
-[IButton, Button Text, "Tooltip",
-
-	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
-
+/** loadToolToViewport
+  *
+  */
+[RoutineDef, loadToolToViewport
+,
 	[VarSet, $current_stroke, [IGetTitle, STROKE:ItemInfo]]
 	
 	//[Note, $current_stroke ]
 	
 	[IGet, ALPHA:ItemInfo]
+
+	[IKeyPress, 78,[IPress, Document:New Document]]
+
+	[FileNameSetNext, $tool_path ]
+	[IPress,Tool:Load Tool]
+	
+	[IPress, Stroke:DragRect]
+	[CanvasStroke,(ZObjStrokeV02n10=H126V47DYH126V47DK1Xh1267Fv47C80H126V47EH126V47FH126V480H126V481H126V482H126V483H126V483)]
+	
+	[IPress, Transform:Edit]
+	
+	[IPress, Transform:Fit]
+	[IPress, Draw:Perspective]
+	
+	[IPress, [StrMerge, "Stroke:", $current_stroke] ]
+
+, // PARAMS
+	$tool_path
+]
+//[IButton, "loadToolToViewport()" , "", [RoutineCall, loadToolToViewport] ]
+
+
+
+[IButton, Load New Tool, "Tooltip",
+
+	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
+
 	[If, [StrLength,$tool_path ] > 0
 	, // THEN LAOD TOOL
-	
-		[IKeyPress, 78,[IPress, Document:New Document]]
-	
-		[FileNameSetNext, $tool_path ]
-		[IPress,Tool:Load Tool]
+		[RoutineCall, saveToolPath, $tool_path ]
 		
-		[IPress, Stroke:DragRect]
-		[CanvasStroke,(ZObjStrokeV02n10=H126V47DYH126V47DK1Xh1267Fv47C80H126V47EH126V47FH126V480H126V481H126V482H126V483H126V483)]
-		
-		[IPress, Transform:Edit]
-		
-		[IPress, Transform:Fit]
-		[IPress, Draw:Perspective]
-		
-		[IPress, [StrMerge, "Stroke:", $current_stroke] ]
-
+		//[RoutineCall, loadToolToViewport, $tool_path]
 	]
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
 
-,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/,/*Height*/]
+
+//
+//[IButton, saveToolPath, "saveToolPath"
+//,
+//	[RoutineCall, saveToolPath, "Test Value"]
+//
+//,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+[IButton, loadTool_1, "loadTool_1"
+,
+	//[RoutineCall, loadTool_1, "Test Value"]
+	[RoutineCall, loadToolPath ]
+	//[RoutineCall, loadToolPath ]
+
+	[Note, $tool_path_loaded ]
+	
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+
+
+
+
+
+
