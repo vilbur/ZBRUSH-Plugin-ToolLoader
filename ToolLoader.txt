@@ -1,0 +1,33 @@
+
+
+
+[IButton, Button Text, "Tooltip",
+
+	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
+
+	[VarSet, $current_stroke, [IGetTitle, STROKE:ItemInfo]]
+	
+	//[Note, $current_stroke ]
+	
+	[IGet, ALPHA:ItemInfo]
+	[If, [StrLength,$tool_path ] > 0
+	, // THEN LAOD TOOL
+	
+		[IKeyPress, 78,[IPress, Document:New Document]]
+	
+		[FileNameSetNext, $tool_path ]
+		[IPress,Tool:Load Tool]
+		
+		[IPress, Stroke:DragRect]
+		[CanvasStroke,(ZObjStrokeV02n10=H126V47DYH126V47DK1Xh1267Fv47C80H126V47EH126V47FH126V480H126V481H126V482H126V483H126V483)]
+		
+		[IPress, Transform:Edit]
+		
+		[IPress, Transform:Fit]
+		[IPress, Draw:Perspective]
+		
+		[IPress, [StrMerge, "Stroke:", $current_stroke] ]
+
+	]
+
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/,/*Height*/]
