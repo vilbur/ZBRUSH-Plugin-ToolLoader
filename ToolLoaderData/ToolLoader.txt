@@ -4,13 +4,13 @@
   */
 [RoutineDef, saveToolPath
 ,
-	//[VarDef, $tool_list(20)]//file path/name
+	//[VarDef, $TOOL_LIST(20)]//file path/name
 	
-	[VarSet, $tool_list(1), $tool_path]
+	[VarSet, $TOOL_LIST(1), $tool_path]
 	
-	[VarSave, $tool_list, toolListFile ]			
+	[VarSave, $TOOL_LIST, $TOOLLISTFILE ]			
 
-	[Note, $tool_path ]
+	[Note, [StrMerge, "Tool path saved", $tool_path ] ]
 	
 , // PARAMS
 	$tool_path
@@ -21,15 +21,15 @@
   */
 [RoutineDef, loadToolPath
 ,
-	//[VarDef, $tool_list(20)]//file path/name
+	//[VarDef, $TOOL_LIST(20)]//file path/name
 	
-	[VarLoad, $tool_list, toolListFile]			
+	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]			
 
-	[VarSet, $tool_path_loaded, [Var, $tool_list(1) ] ]
+	[VarSet, $TOOL_PATH_LOADED, [Var, $TOOL_LIST(1) ] ]
 	
-	//[Note, $tool_path_loaded ]
+	//[Note, $TOOL_PATH_LOADED ]
 //, // PARAMS
-	//$tool_path_loaded
+	//$TOOL_PATH_LOADED
 ]
 
 

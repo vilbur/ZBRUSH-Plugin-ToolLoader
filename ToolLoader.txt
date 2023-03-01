@@ -11,11 +11,11 @@
 //[VarSet, $CONTROSL_PATH,	"" ] // DEV
 
 
-[VarDef, $tool_path_loaded, ""]
+[VarDef, $TOOL_PATH_LOADED, ""]
 
-[VarDef, $tool_list(20), ""]
+[VarDef, $TOOL_LIST(20), ""]
 
-[VarDef, toolListFile, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
+[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
 
 
 
