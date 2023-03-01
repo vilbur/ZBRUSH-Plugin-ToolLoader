@@ -1,19 +1,25 @@
 
+[VarDef, $TOOL_PATH_LOADED, ""]
+
+[VarDef, $TOOL_LIST(20), ""]
+
+//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
+[VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_FOLDER, "\\tool_list.zvr"] ] ]
+
+
 /** saveToolPath
   *
   */
 [RoutineDef, saveToolPath
-,
-	//[VarDef, $TOOL_LIST(20)]//file path/name
-	
-	[VarSet, $TOOL_LIST(1), $tool_path]
+,	
+	[VarSet, $TOOL_LIST([Var, $index]), $tool_path]
 	
 	[VarSave, $TOOL_LIST, $TOOLLISTFILE ]			
 
-	[Note, [StrMerge, "Tool path saved", $tool_path ] ]
+	//[Note, [StrMerge, "Tool path saved", $tool_path ] ]
 	
 , // PARAMS
-	$tool_path
+	$index, $tool_path
 ]
 
 /** loadToolPath
@@ -25,11 +31,11 @@
 	
 	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]			
 
-	[VarSet, $TOOL_PATH_LOADED, [Var, $TOOL_LIST(1) ] ]
+	[VarSet, $TOOL_PATH_LOADED, [Var, $TOOL_LIST([Var, $index]) ] ]
 	
 	//[Note, $TOOL_PATH_LOADED ]
-//, // PARAMS
-	//$TOOL_PATH_LOADED
+, // PARAMS
+	$index
 ]
 
 
@@ -63,7 +69,3 @@
 , // PARAMS
 	$tool_path
 ]
-
-
-
-

@@ -1,23 +1,17 @@
 /**
   *
   */
-[VarDef, $PLUGINS_MENU, 	"~ToolLoader"]
-[VarDef, $PLUGIN_DATA,	"ToolLoaderData"]
+[VarSet, $PLUGIN_NAME, 	"ToolLoader"]
+//[VarSet, $PLUGIN_SUBMENU, 	"Submenu"]
+  
+  
+[VarSet, $PLUGIN_NENU,	[StrMerge, "~", $PLUGIN_NAME ]]
+[VarSet, $PLUGIN_DATA_FOLDER,	[StrMerge, $PLUGIN_NAME, "Data"]]
 
 
-[VarSet, $ZFILE_UTILS_DLL, [StrMerge, $PLUGIN_DATA, "\\ZFileUtils64.dll"] ]
-
-[VarSet, $CONTROSL_PATH,	[StrMerge, $PLUGINS_MENU, ":"]]
-//[VarSet, $CONTROSL_PATH,	"" ] // DEV
-
-
-[VarDef, $TOOL_PATH_LOADED, ""]
-
-[VarDef, $TOOL_LIST(20), ""]
-
-[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
-
-
+//[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU, ":"]]	// FULL PATH: Menu > Submenu > Control
+//[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":"]]	// MENU PATH: Menu > Submenu > Control
+[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
 
 
 <zscriptinsert, "ToolLoaderData/ToolLoader.txt">
