@@ -1,103 +1,24 @@
-[IPalette, "~ToolLoader"]
+/**
+  *
+  */
+[VarDef, $PLUGINS_MENU, 	"~ToolLoader"]
+[VarDef, $PLUGIN_DATA,	"ToolLoaderData"]
+
+
+[VarSet, $ZFILE_UTILS_DLL, [StrMerge, $PLUGIN_DATA, "\\ZFileUtils64.dll"] ]
+
+[VarSet, $CONTROSL_PATH,	[StrMerge, $PLUGINS_MENU, ":"]]
+//[VarSet, $CONTROSL_PATH,	"" ] // DEV
 
 
 [VarDef, $tool_path_loaded, ""]
 
-[VarDef, $tool_list(20)]
+[VarDef, $tool_list(20), ""]
 
-[VarDef, toolListFile, "$tool_list.zvr"]
-
-/** saveToolPath
-  *
-  */
-[RoutineDef, saveToolPath
-,
-	//[VarDef, $tool_list(20)]//file path/name
-	
-	[VarSet, $tool_list(1), $tool_path]
-	
-	[VarSave, $tool_list, toolListFile ]			
-
-	[Note, $tool_path ]
-	
-, // PARAMS
-	$tool_path
-]
-
-/** loadToolPath
-  *
-  */
-[RoutineDef, loadToolPath
-,
-	//[VarDef, $tool_list(20)]//file path/name
-	
-	[VarLoad, $tool_list, toolListFile]			
-
-	[VarSet, $tool_path_loaded, [Var, $tool_list(1) ] ]
-	
-	//[Note, $tool_path_loaded ]
-//, // PARAMS
-	//$tool_path_loaded
-]
-
-
-
-/** loadToolToViewport
-  *
-  */
-[RoutineDef, loadToolToViewport
-,
-	[VarSet, $current_stroke, [IGetTitle, STROKE:ItemInfo]]
-	
-	//[Note, $current_stroke ]
-	
-	[IGet, ALPHA:ItemInfo]
-
-	[IKeyPress, 78,[IPress, Document:New Document]]
-
-	[FileNameSetNext, $tool_path ]
-	[IPress,Tool:Load Tool]
-	
-	[IPress, Stroke:DragRect]
-	[CanvasStroke,(ZObjStrokeV02n10=H126V47DYH126V47DK1Xh1267Fv47C80H126V47EH126V47FH126V480H126V481H126V482H126V483H126V483)]
-	
-	[IPress, Transform:Edit]
-	
-	[IPress, Transform:Fit]
-	[IPress, Draw:Perspective]
-	
-	[IPress, [StrMerge, "Stroke:", $current_stroke] ]
-
-, // PARAMS
-	$tool_path
-]
-
-
-
-[IButton, "~ToolLoader:Save Tool 1", "Save tool path",
-
-	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
-
-	[If, [StrLength,$tool_path ] > 0
-	, // THEN LOAD TOOL
-		[RoutineCall, saveToolPath, $tool_path ]
-		
-		[RoutineCall, loadToolToViewport, $tool_path]
-	]
-,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
-
-
-[IButton, "~ToolLoader:Load Tool 1", "loadTool_1"
-,
-	[RoutineCall, loadToolPath ]
-
-	[RoutineCall, loadToolToViewport, $tool_path_loaded]
-
-,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+[VarDef, toolListFile, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
 
 
 
 
-
-
-
+<zscriptinsert, "ToolLoaderData/ToolLoader.txt">
+<zscriptinsert, "ToolLoaderData/UI.txt">

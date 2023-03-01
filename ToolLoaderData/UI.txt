@@ -1,0 +1,31 @@
+
+
+[IPalette, "~ToolLoader"]
+
+[IButton,  [StrMerge, $CONTROSL_PATH, "Save Tool 1"], "Save tool path",
+
+	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
+
+	[If, [StrLength,$tool_path ] > 0
+	, // THEN LOAD TOOL
+		[RoutineCall, saveToolPath, $tool_path ]
+		
+		[RoutineCall, loadToolToViewport, $tool_path]
+	]
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+
+[IButton, [StrMerge, $CONTROSL_PATH, "Load Tool 1"], "loadTool_1"
+,
+	[RoutineCall, loadToolPath ]
+
+	[RoutineCall, loadToolToViewport, $tool_path_loaded]
+
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+
+
+
+
+
+
