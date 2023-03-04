@@ -6,12 +6,13 @@
   
   
 [VarSet, $PLUGIN_NENU,	[StrMerge, "~", $PLUGIN_NAME ]]
-[VarSet, $PLUGIN_DATA_FOLDER,	[StrMerge, $PLUGIN_NAME, "Data"]]
+[VarSet, $PLUGIN_DATA_PATH,	[StrMerge, $PLUGIN_NAME, "Data\\" ]]
+//[VarSet, $PLUGIN_DATA_PATH,	[FileNameResolvePath, [StrMerge, $PLUGIN_NAME, "\\", $PLUGIN_NAME, "Data" ]]]
 
 
+[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":"]]	// MENU PATH: Menu > Submenu > Control
 //[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU, ":"]]	// FULL PATH: Menu > Submenu > Control
-//[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":"]]	// MENU PATH: Menu > Submenu > Control
-[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
+//[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
 
 
 <zscriptinsert, "ToolLoaderData/ToolLoader.txt">

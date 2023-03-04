@@ -4,7 +4,8 @@
 [VarDef, $TOOL_LIST(20), ""]
 
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
-[VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_FOLDER, "\\tool_list.zvr"] ] ]
+[VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
+//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"]]
 
 
 /** saveToolPath

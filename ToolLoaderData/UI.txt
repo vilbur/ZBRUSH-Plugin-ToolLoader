@@ -3,6 +3,18 @@
 [IPalette, $PLUGIN_NENU ]
 //[ISubPalette, [StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU ]]
 
+//[IButton, [StrMerge, $CONTROLS_PATH, "Load Tool 1"], "loadTool_1"
+[IButton, "Save incremental", "Save incremental"
+,
+	[VarSet, $tool_path_next, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 3] ]
+	
+	[FileNameSetNext, [StrMerge, $tool_path_next, ".ztl"] ]
+	
+	[IPress, Tool:Save As]
+
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Save Tool 1"], "Save tool path",
 
@@ -12,10 +24,11 @@
 	, // THEN LOAD TOOL
 		[RoutineCall, saveToolPath, 0, $tool_path ]
 		
+		[Note, "Tool load saved" ]
+	
 		[RoutineCall, loadToolToViewport, $tool_path]
 	]
 	
-	[Note, $TOOLLISTFILE ]
 
 	
 ,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
@@ -29,4 +42,19 @@
 
 	[Note, $TOOLLISTFILE ]
 
+,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
+
+
+[IButton, [StrMerge, $CONTROLS_PATH, "Save incremental 1"], "Save incremental"
+//[IButton, "Save incremental", "Save incremental"
+,
+
+	[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 3], ".ztl" ] ]
+	
+
+	[IPress, Tool:Save As]
+	
+	[RoutineCall, saveToolPath, 0, $tool_path_next ]
+
+	
 ,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]

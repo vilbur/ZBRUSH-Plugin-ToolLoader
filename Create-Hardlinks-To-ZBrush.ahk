@@ -13,7 +13,7 @@
   *	Path will be replace by paths
   *
   */
-global $source_paths := [	"ToolLoader"
+global $source_paths := [	"ToolLoaderData"
 	,"ToolLoader.zsc" ]
 
 global $zbrush_plugins_path	:= "C:/Program Files/Pixologic/ZBrush 2022/ZStartup/ZPlugs64"
