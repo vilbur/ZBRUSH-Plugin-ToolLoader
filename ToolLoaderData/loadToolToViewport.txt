@@ -28,6 +28,8 @@
 	 ,1 /* 1=Freeze UI then stroke ends */]
 	
 	[IPress, Transform:Fit]
+	
+	[Note, [StrMerge, "TOOL IS LOADED\n\n", [FileNameExtract, $TOOLLISTFILE, 2+4] ],, 2]
 
 , // PARAMS
 	$tool_path

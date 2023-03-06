@@ -1,0 +1,11 @@
+/** loadTool
+  *
+  */
+[RoutineDef, loadTool
+,
+	[RoutineCall, loadToolPath, $index ]
+
+	[RoutineCall, loadToolToViewport, $TOOL_PATH_LOADED]
+, // PARAMS
+	$index
+]
