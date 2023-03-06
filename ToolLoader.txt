@@ -15,5 +15,23 @@
 //[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
 
 
-<zscriptinsert, "ToolLoaderData/ToolLoader.txt">
-<zscriptinsert, "ToolLoaderData/UI.txt">
+
+
+[VarDef, $TOOL_PATH_LOADED, ""]
+
+[VarDef, $TOOL_LIST(20), ""]
+
+//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
+[VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
+//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"]]
+
+
+
+
+
+
+
+<zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
+<zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"
+<zscriptinsert, "ToolLoaderData/loadToolToViewport.txt">	// "./ToolLoaderData/loadToolToViewport.txt"
+<zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"

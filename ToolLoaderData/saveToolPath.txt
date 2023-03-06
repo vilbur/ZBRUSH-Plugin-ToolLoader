@@ -1,0 +1,14 @@
+/** saveToolPath
+  *
+  */
+[RoutineDef, saveToolPath
+,	
+	[VarSet, $TOOL_LIST([Var, $index]), $tool_path]
+	
+	[VarSave, $TOOL_LIST, $TOOLLISTFILE ]			
+
+	//[Note, [StrMerge, "Tool path saved", $tool_path ] ]
+	
+, // PARAMS
+	$index, $tool_path
+]

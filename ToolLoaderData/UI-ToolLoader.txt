@@ -16,7 +16,7 @@
 
 
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Save Tool 1"], "Save tool path",
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"], "Get tool path",
 
 	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
 	
@@ -28,9 +28,7 @@
 	
 		[RoutineCall, loadToolToViewport, $tool_path]
 	]
-	
 
-	
 ,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
 
 
@@ -40,21 +38,20 @@
 
 	[RoutineCall, loadToolToViewport, $tool_path_loaded]
 
-	[Note, $TOOLLISTFILE ]
+	//[Note, $TOOLLISTFILE ]
+	
+	[Note, [StrMerge, "TOOL IS LOADED\n\n", [FileNameExtract, $TOOLLISTFILE, 2+4] ],, 3]
 
 ,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
 
 
-[IButton, [StrMerge, $CONTROLS_PATH, "Save incremental 1"], "Save incremental"
+[IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
 //[IButton, "Save incremental", "Save incremental"
 ,
-
 	[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 3], ".ztl" ] ]
 	
-
 	[IPress, Tool:Save As]
 	
 	[RoutineCall, saveToolPath, 0, $tool_path_next ]
 
-	
 ,/*Disabled*/,/*Width*/,/*Hotkey*/,/*Icon*/, 48]
