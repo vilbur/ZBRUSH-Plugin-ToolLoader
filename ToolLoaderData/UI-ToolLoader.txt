@@ -4,7 +4,8 @@
 //[ISubPalette, [StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU ]]
 
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	"Load Last Tool",	[RoutineCall, loadTool, 0 ],,,,, 48]
+//[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	"Load Last Tool",	[RoutineCall, loadTool, 0 ],,,,, 48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	$TOOL_LIST(0),	[RoutineCall, loadTool, 0 ],,,,, 48]
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool path",	[RoutineCall, getTool, 1 ],,,,, 48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 2"],	"Get tool path",	[RoutineCall, getTool, 2 ],,,,, 48]

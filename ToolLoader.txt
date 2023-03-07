@@ -15,21 +15,18 @@
 //[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
 
 
-
-
 [VarDef, $TOOL_PATH_LOADED, ""]
 
-[VarDef, $TOOL_LIST(20), ""] // index 0 is for last used tool
+[VarSet, TOOL_LIST_LENGTH, 4 ]
+
+[VarDef, $TOOL_LIST([Var, tool_list_length]), ""] // index 0 is for last used tool
 
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
 [VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"]]
 
 
-
-
-
-
+<zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getToolList.txt"
 
 <zscriptinsert, "ToolLoaderData/getToolPath.txt">	// "./ToolLoaderData/getToolPath.txt"
 <zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"
@@ -38,5 +35,7 @@
 <zscriptinsert, "ToolLoaderData/loadTool.txt">	// "./ToolLoaderData/loadTool.txt"
 
 <zscriptinsert, "ToolLoaderData/loadToolToViewport.txt">	// "./ToolLoaderData/loadToolToViewport.txt"
+
+
 
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
