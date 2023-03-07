@@ -13,7 +13,7 @@
 	
 	[VarSet, counter, 0]
 
-	[Loop, 3
+	[Loop, [Var, TOOL_LIST_LENGTH]
 	,
 		[VarSet, tool_path, [Var, TOOL_LIST_LOADED([Var, $i])] ]
 	

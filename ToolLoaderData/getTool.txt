@@ -2,7 +2,9 @@
   *
   */
 [RoutineDef, getTool
-,	
+,
+	//[Note, "getTool"]
+	
 	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
 	
 	[If, [StrLength,$tool_path ] > 0
@@ -10,8 +12,8 @@
 		
 		[RoutineCall, getToolPath, $index, $tool_path ]
 		
-		//[Note, "Tool load saved" ]
-	
+		[RoutineCall, enableLoadButton, $index]
+		
 		[RoutineCall, loadToolToViewport, $tool_path]
 	]
 	

@@ -1,0 +1,30 @@
+/** enableButton
+  */
+[RoutineDef, enableButton
+,
+	//[Note, "enableButton"]
+	[IEnable, [StrMerge, $CONTROLS_PATH, "Load Tool ", $index] ]	
+, // PARAMS
+	$index
+]
+//[IButton, "enableButton()" , "", [RoutineCall, enableButton] ]
+
+/** enableButtons
+  */
+[RoutineDef, enableButtons
+,	
+	[Loop, 3
+	,
+		[VarSet, btnindex, btnindex+1]
+		
+		[VarSet, str_len, [StrLength, $TOOL_LIST([Var, btnindex])] ]
+		
+		[If,  [Var, str_len] > 0
+		,
+			 [RoutineCall, enableButton, btnindex]
+		]
+		
+	,$i]
+]
+//[IButton, "enableButtons()" , "", [RoutineCall, enableButtons] ]
+

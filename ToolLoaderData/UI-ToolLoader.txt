@@ -4,32 +4,13 @@
 //[ISubPalette, [StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU ]]
 
 
-//[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	"Load Last Tool",	[RoutineCall, loadTool, 0 ],,,,, 48]
+
+[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons"],	,	[RoutineCall, enableButton, 1 ],,,,, 48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons all"],	,	[RoutineCall, enableButtons ],,,,, 48]
+
 [IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	$TOOL_LIST(0),	[RoutineCall, loadTool, 0 ],,,,, 48]
 
-//[Loop,[VarSize, $TOOL_LIST]
-//,
-//	//[Note, [Var, $TOOL_LIST([Var, $i])],, 0.5]
-//	[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool ",	[Var, $i]],	"Get tool path",	[RoutineCall, getTool,	[Var, $i] ],,,,, 48]
-//	[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool ",	[Var, $i]],	"Get tool path",	[RoutineCall, loadTool,	[Var, $i] ],,,,, 48]
-//	
-//	//[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 2 "],	"Get tool path",	[RoutineCall, getTool, 2 ],,,,, 48]
-//	//[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool path",	[RoutineCall, getTool, 3 ],,,,, 48]
-//	
-//	
-//	//[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 1"],	"Get tool path",	[RoutineCall, loadTool, 1 ],,,,, 48]
-//	//[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 2"],	"Get tool path",	[RoutineCall, loadTool, 2 ],,,,, 48]
-//	//[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	"Get tool path",	[RoutineCall, loadTool, 3 ],,,,, 48]
-//	
-//,$i]
-
-
-
-
-
-
 [IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
-//[IButton, "Save incremental", "Save incremental"
 ,
 	[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 3], ".ztl" ] ]
 	
@@ -38,3 +19,16 @@
 	[RoutineCall, getToolPath, 0, $tool_path_next ]
 
 ,,,,, 48]
+
+
+
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool path",	[RoutineCall, getTool,	1 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 1"],	"Get tool path",	[RoutineCall, loadTool,	1 ], 1,,,,	48]
+
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 2"],	"Get tool path",	[RoutineCall, getTool,	2 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 2"],	"Get tool path",	[RoutineCall, loadTool,	2 ], 1,,,,	48]
+
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool path",	[RoutineCall, getTool,	3 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	"Get tool path",	[RoutineCall, loadTool,	3 ], 1,,,,	48]
+
+[RoutineCall, enableButtons] 
