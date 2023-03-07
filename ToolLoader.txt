@@ -38,4 +38,13 @@
 
 
 
+[If, [FileExists, $TOOLLISTFILE]
+, // THEN
+	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
+	
+	[RoutineCall, getToolList]
+,
+	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
+]
+
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"

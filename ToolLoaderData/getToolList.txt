@@ -2,7 +2,9 @@
   */
 [RoutineDef, getToolList
 ,
+	//[Note, "getToolList"]
 
+	
 	[VarDef, TOOL_LIST_LOADED([Var, TOOL_LIST_LENGTH]), ""] // index 0 is for last used tool
 	
 	[VarLoad, TOOL_LIST_LOADED, $TOOLLISTFILE]			
@@ -14,32 +16,25 @@
 	[Loop, 3
 	,
 		[VarSet, tool_path, [Var, TOOL_LIST_LOADED([Var, $i])] ]
-			
+	
+		//[VarSet, TOOL_LIST_LOADED([Var, $i]), tool_path]
+		
 		[If, [FileExists, tool_path]
 		, // THEN
-			[VarSet, $TOOL_LIST([Var, counter]), tool_path]]
-		
+			[VarSet, $TOOL_LIST([Var, counter]), tool_path]
 			[VarSet, counter, counter + 1]
 		]
 				
 	,$i]
 	
 	//
-	[Loop,[VarSize, $TOOL_LIST]
-	,
-		[Note, [Var, $TOOL_LIST([Var, $i])],, 0.5]
-	,$i]
+	//[Loop,[VarSize, $TOOL_LIST]
+	//,
+		//[Note, [Var, $TOOL_LIST([Var, $i])],, 0.5]
+	//,$i]
 	
 
 ]
 //[IButton, "getToolList()" , "", [RoutineCall, getToolList] ]
 
 
-[If, [FileExists, $TOOLLISTFILE]
-, // THEN
-	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
-	
-	[RoutineCall, getToolList]
-,
-	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
-]
