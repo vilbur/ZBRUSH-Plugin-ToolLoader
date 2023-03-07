@@ -7,7 +7,6 @@
 	
 	[If, [StrLength,$tool_path ] > 0
 	, // THEN LOAD TOOL
-		[RoutineCall, getToolPath, 0, $tool_path ] // Save as last used tool
 		
 		[RoutineCall, getToolPath, $index, $tool_path ]
 		

@@ -30,6 +30,8 @@
 	[IPress, Transform:Fit]
 	
 	[Note, [StrMerge, "TOOL IS LOADED\n\n", [FileNameExtract, $TOOLLISTFILE, 2+4] ],, 2]
+	
+	[RoutineCall, getToolPath, 0, $tool_path ] // Save as last used tool
 
 , // PARAMS
 	$tool_path
