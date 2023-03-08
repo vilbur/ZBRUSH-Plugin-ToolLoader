@@ -12,7 +12,7 @@
 		
 		[RoutineCall, getToolPath, $index, $tool_path ]
 		
-		[RoutineCall, enableLoadButton, $index]
+		[RoutineCall, enableButton, $index]
 		
 		[RoutineCall, loadToolToViewport, $tool_path]
 	]

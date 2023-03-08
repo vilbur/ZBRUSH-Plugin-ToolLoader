@@ -12,19 +12,27 @@
 /** enableButtons
   */
 [RoutineDef, enableButtons
-,	
-	[Loop, 3
-	,
-		[VarSet, btnindex, btnindex+1]
+,
+
+	[Loop, [VarSize, $TOOL_LIST] -1
+	,	
 		
-		[VarSet, str_len, [StrLength, $TOOL_LIST([Var, btnindex])] ]
+		[VarSet, tool_path, [Var, $TOOL_LIST( i +1 )] ]
 		
-		[If,  [Var, str_len] > 0
-		,
-			 [RoutineCall, enableButton, btnindex]
-		]
+		//[Note, tool_path,, 0.5]
+	
 		
-	,$i]
+		[If,  [StrLength, tool_path ] > 0 
+		, 
+			 [RoutineCall, enableButton, i +1] 
+		] 
+		
+	,i]
+	
+
+	
 ]
 //[IButton, "enableButtons()" , "", [RoutineCall, enableButtons] ]
+
+
 
