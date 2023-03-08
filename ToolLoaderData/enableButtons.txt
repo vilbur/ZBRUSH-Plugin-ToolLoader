@@ -13,24 +13,17 @@
   */
 [RoutineDef, enableButtons
 ,
-
 	[Loop, [VarSize, $TOOL_LIST] -1
 	,	
-		
 		[VarSet, tool_path, [Var, $TOOL_LIST( i +1 )] ]
 		
-		//[Note, tool_path,, 0.5]
-	
 		
 		[If,  [StrLength, tool_path ] > 0 
 		, 
 			 [RoutineCall, enableButton, i +1] 
 		] 
-		
 	,i]
-	
 
-	
 ]
 //[IButton, "enableButtons()" , "", [RoutineCall, enableButtons] ]
 

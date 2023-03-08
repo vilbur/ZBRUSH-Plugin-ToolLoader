@@ -19,7 +19,7 @@
 
 [VarSet, TOOL_LIST_LENGTH, 4 ]
 
-[VarDef, $TOOL_LIST([Var, tool_list_length]), ""] // index 0 is for last used tool
+[VarDef, $TOOL_LIST([Var, TOOL_LIST_LENGTH]), ""] // index 0 is for last used tool
 
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
 [VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
@@ -28,7 +28,7 @@
 
 <zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getToolList.txt"
 
-<zscriptinsert, "ToolLoaderData/getToolPath.txt">	// "./ToolLoaderData/getToolPath.txt"
+<zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
 <zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"
 
 <zscriptinsert, "ToolLoaderData/getTool.txt">	// "./ToolLoaderData/getTool.txt"

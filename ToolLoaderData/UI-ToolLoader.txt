@@ -16,7 +16,7 @@
 	
 	[IPress, Tool:Save As]
 	
-	[RoutineCall, getToolPath, 0, $tool_path_next ]
+	[RoutineCall, saveToolPath, 0, $tool_path_next ]
 
 ,,,,, 48]
 

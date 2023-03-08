@@ -1,7 +1,7 @@
-/** getToolPath
+/** saveToolPath
   *
   */
-[RoutineDef, getToolPath
+[RoutineDef, saveToolPath
 ,	
 	[VarSet, $TOOL_LIST([Var, $index]), $tool_path]
 	

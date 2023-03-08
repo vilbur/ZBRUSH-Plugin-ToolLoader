@@ -10,7 +10,7 @@
 	[If, [StrLength,$tool_path ] > 0
 	, // THEN LOAD TOOL
 		
-		[RoutineCall, getToolPath, $index, $tool_path ]
+		[RoutineCall, saveToolPath, $index, $tool_path ]
 		
 		[RoutineCall, enableButton, $index]
 		
