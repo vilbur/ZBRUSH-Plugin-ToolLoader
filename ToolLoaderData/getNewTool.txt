@@ -1,9 +1,9 @@
-/** getTool
+/** Browse new tool, save path and laod to viewport
   *
   */
-[RoutineDef, getTool
+[RoutineDef, getNewTool
 ,
-	//[Note, "getTool"]
+	//[Note, "getNewTool"]
 	
 	[VarSet, $tool_path, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
 	

@@ -31,7 +31,7 @@
 <zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
 <zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"
 
-<zscriptinsert, "ToolLoaderData/getTool.txt">	// "./ToolLoaderData/getTool.txt"
+<zscriptinsert, "ToolLoaderData/getNewTool.txt">	// "./ToolLoaderData/getNewTool.txt"
 <zscriptinsert, "ToolLoaderData/loadTool.txt">	// "./ToolLoaderData/loadTool.txt"
 
 <zscriptinsert, "ToolLoaderData/loadToolToViewport.txt">	// "./ToolLoaderData/loadToolToViewport.txt"

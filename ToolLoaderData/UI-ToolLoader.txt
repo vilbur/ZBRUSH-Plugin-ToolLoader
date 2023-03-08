@@ -22,12 +22,12 @@
 
 
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool path",	[RoutineCall, getTool,	1 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool path",	[RoutineCall, getNewTool,	1 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 1"],	"Get tool path",	[RoutineCall, loadTool,	1 ], 1,,,,	48]
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 2"],	"Get tool path",	[RoutineCall, getTool,	2 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 2"],	"Get tool path",	[RoutineCall, getNewTool,	2 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 2"],	"Get tool path",	[RoutineCall, loadTool,	2 ], 1,,,,	48]
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool path",	[RoutineCall, getTool,	3 ],,,,,	48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool path",	[RoutineCall, getNewTool,	3 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	"Get tool path",	[RoutineCall, loadTool,	3 ], 1,,,,	48]
 
