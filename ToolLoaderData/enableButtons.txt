@@ -2,30 +2,40 @@
   */
 [RoutineDef, enableButton
 ,
-	//[Note, "enableButton"]
-	[IEnable, [StrMerge, $CONTROLS_PATH, "Load Tool ", $index] ]	
+	[If, [Var, $index] > 0
+	, // If not "Load Last Tool" button
+		[IEnable, [StrMerge, $CONTROLS_PATH, "Load Tool ", $index] ]
+	]
 , // PARAMS
 	$index
 ]
-//[IButton, "enableButton()" , "", [RoutineCall, enableButton] ]
+
+/** disableButton
+  */
+[RoutineDef, disableButton
+,
+	[If, [Var, $index] > 0
+	, // If not "Load Last Tool" button
+		[IDisable, [StrMerge, $CONTROLS_PATH, "Load Tool ", $index] ]
+	]
+, // PARAMS
+	$index
+]
 
 /** enableButtons
   */
 [RoutineDef, enableButtons
 ,
 	[Loop, [VarSize, $TOOL_LIST] -1
-	,	
+	,
 		[VarSet, tool_path, [Var, $TOOL_LIST( i +1 )] ]
-		
-		
-		[If,  [StrLength, tool_path ] > 0 
-		, 
-			 [RoutineCall, enableButton, i +1] 
-		] 
+
+
+		[If,  [StrLength, tool_path ] > 0
+		,
+			 [RoutineCall, enableButton, i +1]
+		]
 	,i]
 
 ]
 //[IButton, "enableButtons()" , "", [RoutineCall, enableButtons] ]
-
-
-
