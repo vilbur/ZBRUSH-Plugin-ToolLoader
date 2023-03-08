@@ -26,7 +26,7 @@
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"]]
 
 
-<zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getToolList.txt"
+<zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getNewToolList.txt"
 
 <zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
 <zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"

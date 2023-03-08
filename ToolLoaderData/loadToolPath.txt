@@ -5,7 +5,7 @@
 ,
 	//[VarDef, $TOOL_LIST(20)]//file path/name
 	
-	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]			
+	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
 
 	[VarSet, $TOOL_PATH_LOADED, [Var, $TOOL_LIST([Var, $index]) ] ]
 	
