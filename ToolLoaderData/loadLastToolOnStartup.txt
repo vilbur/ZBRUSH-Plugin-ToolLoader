@@ -1,0 +1,10 @@
+/** loadLastToolOnStartup
+  *
+  */
+[RoutineDef, loadLastToolOnStartup
+,
+	[If, [Var, $CONFIG(0)]
+	, // THEN
+		[RoutineCall, loadTool, 0 ]
+	]
+]

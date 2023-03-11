@@ -3,8 +3,8 @@
   */
 [VarSet, $PLUGIN_NAME, 	"ToolLoader"]
 //[VarSet, $PLUGIN_SUBMENU, 	"Submenu"]
-  
-  
+
+
 [VarSet, $PLUGIN_NENU,	[StrMerge, "~", $PLUGIN_NAME ]]
 [VarSet, $PLUGIN_DATA_PATH,	[StrMerge, $PLUGIN_NAME, "Data\\" ]]
 //[VarSet, $PLUGIN_DATA_PATH,	[FileNameResolvePath, [StrMerge, $PLUGIN_NAME, "\\", $PLUGIN_NAME, "Data" ]]]
@@ -20,11 +20,15 @@
 [VarSet, TOOL_LIST_LENGTH, 4 ]
 
 [VarDef, $TOOL_LIST([Var, TOOL_LIST_LENGTH]), ""] // index 0 is for last used tool
+[VarDef,	$CONFIG(1), 1 ]
+
 
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
-[VarDef, $TOOLLISTFILE, [FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
-//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"]]
+[VarDef, $TOOLLISTFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
+[VarDef, $CONFIGFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\config.zvr"] ] ]
 
+
+<zscriptinsert, "ToolLoaderData/configFile.txt">	// "./ToolLoaderData/configFile.txt"
 
 <zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getNewToolList.txt"
 
@@ -35,13 +39,18 @@
 <zscriptinsert, "ToolLoaderData/loadTool.txt">	// "./ToolLoaderData/loadTool.txt"
 
 <zscriptinsert, "ToolLoaderData/loadToolToViewport.txt">	// "./ToolLoaderData/loadToolToViewport.txt"
+<zscriptinsert, "ToolLoaderData/loadLastTool.txt">	// "./ToolLoaderData/loadLastTool.txt"
+<zscriptinsert, "ToolLoaderData/loadLastToolOnStartup.txt">	// "./ToolLoaderData/loadLastToolOnStartup.txt"
+
+//[VarLoad,	$CONFIG, $CONFIGFILE ]
+
 
 
 
 [If, [FileExists, $TOOLLISTFILE]
 , // THEN
 	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
-	
+
 	[RoutineCall, getToolList]
 ,
 	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
@@ -51,3 +60,14 @@
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
 
 [RoutineCall, enableButtons]
+
+[RoutineCall, configInit]
+
+
+[Sleep,,
+	// Command on awake
+	[RoutineCall, loadLastToolOnStartup]
+,256// Event
+]
+
+

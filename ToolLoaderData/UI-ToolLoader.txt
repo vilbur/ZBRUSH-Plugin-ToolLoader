@@ -1,5 +1,3 @@
-
-
 [IPalette, $PLUGIN_NENU ]
 //[ISubPalette, [StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU ]]
 
@@ -9,7 +7,7 @@
 //[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons"],	,	[RoutineCall, enableButton, 1 ],,,,, 48]
 //[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons all"],	,	[RoutineCall, enableButtons ],,,,, 48]
 
-[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, 48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadLastTool ],,,,, 48]
 
 [IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
 ,
@@ -22,6 +20,13 @@
 ,,,,, 48]
 
 
+[ISwitch, [StrMerge, $CONTROLS_PATH, "Last Tool Startup"], [Var, $CONFIG(0)], "Load Last Tool On Zbrush Startup"
+,
+	[RoutineCall, configSave, 0, 1 ]
+,
+	[RoutineCall, configSave, 0, 0 ]
+,	/*Disabled*/,	/*Width*/,	/*Icon*/,	/*Height*/]
+
 
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool",	[RoutineCall, getNewTool,	1 ],,,,,	48]
@@ -32,3 +37,4 @@
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	48]
+

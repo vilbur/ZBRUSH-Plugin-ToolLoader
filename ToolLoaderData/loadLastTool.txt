@@ -3,6 +3,5 @@
   */
 [RoutineDef, loadLastTool
 ,
-	
-
+	[RoutineCall, loadTool, 0 ]
 ]
