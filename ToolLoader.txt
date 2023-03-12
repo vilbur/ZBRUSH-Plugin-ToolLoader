@@ -1,5 +1,10 @@
-/**
+/** IMPORTANT
   *
+
+	ADD LINE BELOW TO DefaultZScript
+	[If, [IExists, ~ToolLoader:ToolLoaderInit ], [IPress, ~ToolLoader:ToolLoaderInit ]] // init plugin
+
+  
   */
 [VarSet, $PLUGIN_NAME, 	"ToolLoader"]
 //[VarSet, $PLUGIN_SUBMENU, 	"Submenu"]
@@ -42,10 +47,6 @@
 <zscriptinsert, "ToolLoaderData/loadLastTool.txt">	// "./ToolLoaderData/loadLastTool.txt"
 <zscriptinsert, "ToolLoaderData/loadLastToolOnStartup.txt">	// "./ToolLoaderData/loadLastToolOnStartup.txt"
 
-//[VarLoad,	$CONFIG, $CONFIGFILE ]
-
-
-
 
 [If, [FileExists, $TOOLLISTFILE]
 , // THEN
@@ -56,18 +57,13 @@
 	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
 ]
 
+[RoutineCall, configInit]
+
 <zscriptinsert, "ToolLoaderData/enableButtons.txt">	// "./ToolLoaderData/enableButtons.txt"
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
 
 [RoutineCall, enableButtons]
 
-[RoutineCall, configInit]
 
-
-[Sleep,,
-	// Command on awake
-	[RoutineCall, loadLastToolOnStartup]
-,256// Event
-]
-
+[RoutineCall, loadLastToolOnStartup]
 

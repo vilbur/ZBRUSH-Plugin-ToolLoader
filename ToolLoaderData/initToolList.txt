@@ -1,0 +1,14 @@
+/** initToolList
+  */
+[RoutineDef, initToolList
+,
+	[If, [FileExists, $TOOLLISTFILE]
+	, // THEN
+		[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
+
+		[RoutineCall, getToolList]
+	,
+		[VarSave, $TOOL_LIST, $TOOLLISTFILE]
+	]
+]
+//[IButton, "initToolList()" , "", [RoutineCall, initToolList] ]

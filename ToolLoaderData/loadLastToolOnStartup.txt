@@ -5,6 +5,17 @@
 ,
 	[If, [Var, $CONFIG(0)]
 	, // THEN
+
+		[VarSet, startup_doc, "ZPUBLIC_ZStartup\StartupDocument.zbr"]
+
+		[If, [FileExists, startup_doc]
+		, // THEN
+			[FileNameSetNext, startup_doc]
+
+			[IKeyPress, 78,[IPress,Document:Open]]
+		]
+
+
 		[RoutineCall, loadTool, 0 ]
 	]
 ]

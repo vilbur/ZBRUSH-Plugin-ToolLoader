@@ -8,13 +8,13 @@
 	[If, [FileExists, $TOOL_PATH_LOADED]
 	, // THEN
 		[RoutineCall, loadToolToViewport, $TOOL_PATH_LOADED]
-		
+
 	, // ELSE
 		[VarSet, $TOOL_LIST([Var, $index]), ""]
 
 		[RoutineCall, disableButton, $index]
 
-		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 0]
+		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 1]
 	]
 
 , // PARAMS
