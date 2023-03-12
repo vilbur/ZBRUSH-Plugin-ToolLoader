@@ -14,7 +14,7 @@
 
 		[RoutineCall, disableButton, $index]
 
-		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 1]
+		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 0.5]
 	]
 
 , // PARAMS

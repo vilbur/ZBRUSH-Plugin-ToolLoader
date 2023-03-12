@@ -4,7 +4,7 @@
 	ADD LINE BELOW TO DefaultZScript
 	[If, [IExists, ~ToolLoader:ToolLoaderInit ], [IPress, ~ToolLoader:ToolLoaderInit ]] // init plugin
 
-  
+
   */
 [VarSet, $PLUGIN_NAME, 	"ToolLoader"]
 //[VarSet, $PLUGIN_SUBMENU, 	"Submenu"]
@@ -67,3 +67,4 @@
 
 [RoutineCall, loadLastToolOnStartup]
 
+[IHide, [StrMerge, $CONTROLS_PATH, $PLUGIN_NAME, "Init" ]]
