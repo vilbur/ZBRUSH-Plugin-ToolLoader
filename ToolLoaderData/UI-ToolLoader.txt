@@ -2,43 +2,7 @@
 //[ISubPalette, [StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU ]]
 
 
-/* This button is fired up by DefaultZScript, it runs plugin first time and initialize it, otherwise ISwitch does not work on first click properly */
-//[IButton, [StrMerge, $CONTROLS_PATH, $PLUGIN_NAME, "Init" ], "",,1,,,,0]
-//[IButton, [StrMerge, $CONTROLS_PATH, $PLUGIN_NAME, "Init" ], ""]
-
-[ISwitch, [StrMerge, $CONTROLS_PATH, $PLUGIN_NAME, "Init" ]
-,]
- //,,,,,,,2]
-
-
-//[IButton,  [StrMerge, $CONTROLS_PATH, "getToolList"],	,	[RoutineCall, getToolList ],,,,, 48]
-//[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons"],	,	[RoutineCall, enableButton, 1 ],,,,, 48]
-//[IButton,  [StrMerge, $CONTROLS_PATH, "enableButtons all"],	,	[RoutineCall, enableButtons ],,,,, 48]
-
-
-
-[ISwitch, "~ToolLoader:onStartup", [Var, $CONFIG(0)], "Info text",
-	[RoutineCall, configSave, 0, 1 ]
-
-	//[RoutineCall, loadLastTool ]
-,
-	[RoutineCall, configSave, 0, 0 ]
-
-,	/*Disabled*/,	/*Width*/,	48	]
-
-
-
-[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadLastTool ],,,,, 48]
-
-[IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
-,
-	[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 3], ".ztl" ] ]
-
-	[IPress, Tool:Save As]
-
-	[RoutineCall, saveToolPath, 0, $tool_path_next ]
-
-,,,,, 48]
+[IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, 48]
 
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 1"],	"Get tool",	[RoutineCall, getNewTool,	1 ],,,,,	48]

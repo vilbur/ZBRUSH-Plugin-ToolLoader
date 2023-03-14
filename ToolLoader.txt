@@ -25,15 +25,13 @@
 [VarSet, TOOL_LIST_LENGTH, 4 ]
 
 [VarDef, $TOOL_LIST([Var, TOOL_LIST_LENGTH]), ""] // index 0 is for last used tool
-[VarDef,	$CONFIG(1), 1 ]
+[VarDef,	$CONFIG(1) ]
 
 
 //[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
 [VarDef, $TOOLLISTFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
 [VarDef, $CONFIGFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\config.zvr"] ] ]
 
-
-<zscriptinsert, "ToolLoaderData/configFile.txt">	// "./ToolLoaderData/configFile.txt"
 
 <zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getNewToolList.txt"
 
@@ -45,7 +43,6 @@
 
 <zscriptinsert, "ToolLoaderData/loadToolToViewport.txt">	// "./ToolLoaderData/loadToolToViewport.txt"
 <zscriptinsert, "ToolLoaderData/loadLastTool.txt">	// "./ToolLoaderData/loadLastTool.txt"
-<zscriptinsert, "ToolLoaderData/loadLastToolOnStartup.txt">	// "./ToolLoaderData/loadLastToolOnStartup.txt"
 
 
 [If, [FileExists, $TOOLLISTFILE]
@@ -57,14 +54,10 @@
 	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
 ]
 
-[RoutineCall, configInit]
 
 <zscriptinsert, "ToolLoaderData/enableButtons.txt">	// "./ToolLoaderData/enableButtons.txt"
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
 
+
 [RoutineCall, enableButtons]
 
-
-[RoutineCall, loadLastToolOnStartup]
-
-[IHide, [StrMerge, $CONTROLS_PATH, $PLUGIN_NAME, "Init" ]]
