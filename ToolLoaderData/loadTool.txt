@@ -1,4 +1,7 @@
-/** loadTool
+/** load Tool from \tool_list.zvr
+  *
+  * @param integer $index of tool in file to load, index 0 is last used tool
+  *
   *
   */
 [RoutineDef, loadTool
