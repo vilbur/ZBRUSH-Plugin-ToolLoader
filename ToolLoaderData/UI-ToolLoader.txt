@@ -6,6 +6,25 @@
 [IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, 48]
 
 
+/* SAVE
+*/
+[IButton, [StrMerge, $CONTROLS_PATH, "Save"], "Save current tool"
+,
+
+	[VarSet, $tool_path_next, [StrMerge, [ToolGetPath, [IGet, Tool:ItemInfo] ], ".ztl" ] ]
+
+
+	[FileNameSetNext, $tool_path_next ]
+
+	[IPress, Tool:Save As]
+
+	[RoutineCall, saveToolPath, 0, $tool_path_next ]
+
+	[Note, [StrMerge, "TOOL SAVED:\n\n", [FileNameExtract, $tool_path_next, 2 ] ] ]
+
+,, 96,,, 48]
+
+
 /* SAVE +
 */
 [IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
