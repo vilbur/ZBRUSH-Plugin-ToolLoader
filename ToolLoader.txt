@@ -45,6 +45,9 @@
 <zscriptinsert, "ToolLoaderData/loadLastTool.txt">	// "./ToolLoaderData/loadLastTool.txt"
 
 
+<zscriptinsert, "ToolLoaderData/loadDefaultTool.txt">	// "./ToolLoaderData/loadDefaultTool.txt"
+
+
 [If, [FileExists, $TOOLLISTFILE]
 , // THEN
 	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
@@ -60,4 +63,3 @@
 
 
 [RoutineCall, enableButtons]
-

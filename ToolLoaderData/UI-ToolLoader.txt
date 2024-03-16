@@ -55,3 +55,27 @@
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	48]
+
+/** RESET TOOLS
+  *
+  */
+[IButton, [StrMerge, $CONTROLS_PATH, "R"], "Reset mess in tools window"
+,
+
+	[If, [MessageOKCancel, "Reset Tools ?"]
+	, // THEN
+		[IKeyPress,'1', [IReset, 3]]
+
+	, // ELSE
+
+	]
+
+,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
+
+/** LOAD SPHERE, set edit mode and convert to polymesh
+  *
+  */
+[IButton, [StrMerge, $CONTROLS_PATH, "Load Sphere"], "LOAD DEFAULT SPHERE > set edit mode > convert to polymesh"
+,
+	[RoutineCall, loadDefaultTool, "Sphere3D" ]
+,, 96,,, 32]
