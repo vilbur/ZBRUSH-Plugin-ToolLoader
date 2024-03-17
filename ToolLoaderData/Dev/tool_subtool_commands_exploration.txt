@@ -1,0 +1,90 @@
+/* TEST AND EXPLAIN ZBRUSH COMMAND TOOL MADNESS:
+
+	MAIN SUBTOOL IS FIRST SUBTOOL NAMED AS .ztl FILE
+
+	CONNECTION BETWEEN FILE AND 1st SUBTOOL:
+		is WORKING if: 1st subtool has same name as .ztl file and not been renamed after save
+
+		is LOST if:
+			1 ) 1st subtool was moved in list	( conncetion is repaired if subtool is moved back to 1st place )
+			2 ) 1st subtool was renamed, then connection is lost even if tool is renamed back
+
+*/
+[IButton,  TOOL AND SUBTOOL INFO DEBUG, "Loop subtools and compare command on different sates of tools and subtools",
+[IConfig,2022]
+
+
+[Loop, [SubToolGetCount],
+
+	[SubToolSelect, i ]
+
+	[VarSet, $commands_1,
+		 [StrMerge,
+
+			/* GET current tool path or name, depends on conditions:
+				1) return PATH to current tool file, IF CONNECTION WORKS
+				2) return NAME of 1st subtool        IF CONNECTION IS LOST
+
+			*/
+			"[ToolGetPath]: ",       [ToolGetPath], "\n\n",
+
+			/* GET current subtool path or name, depends on conditions:
+				1) return PATH to current subtool file, IF CONNECTION WORKS
+				2) return NAME of current subtool        IF CONNECTION IS LOST
+			*/
+			"[GetActiveToolPath]: ", [GetActiveToolPath], "\n\n",
+
+
+			/* GET current .ztl file path
+				1) return PATH to current .ztl file, IF CONNECTION WORKS
+				2) return ""                         IF CONNECTION IS LOST
+
+			*/
+			"FILE DIR: ",               [FileNameExtract, [ToolGetPath], 1 ], "\n\n",
+
+			/* GET name of current subtool EVERY TIME - GREAT, AWESOME, UNBELIEVABLE !!!
+
+			*/
+			"SUBTOOL NAME: ",               [FileNameExtract, [GetActiveToolPath], 2 ], "\n\n"
+		]
+	]
+
+	/* STRING REACH MAX FUCKING LENGTH ROLF :D WTF, use second */
+	[VarSet, $commands_2,
+		 [StrMerge,
+
+			/* THIS WORKS FINE, HMMM SWEET
+
+			    GET path to current .ztl file
+
+				WORKS IF:     MAIN SUBTOOL is on any place in subtool list
+				NOT WORKS IF: MAIN SUBTOOL was not renamed once
+			*/
+		 	"[IGetTitle, Tool:Current Tool]: ", [IGetTitle,Tool:Current Tool], "\n\n",
+
+
+			/* GET current tool\subtool name ( Selected subtool appears as tool )
+
+				USELESS:  return name with trailing "." E.G.: "fuckin-subtool."
+
+				USE THIS: [FileNameExtract, [GetActiveToolPath], 2 ]
+
+			*/
+			"[IGetTitle, Tool:ItemInfo]:     ", [IGetTitle,Tool:ItemInfo], "\n\n",
+
+
+			/* Current Tool Number
+			*/
+           "[IGet, Tool:ItemInfo]:     ",[IGet, Tool:ItemInfo],   "\n\n",
+
+			"" // last item, preventing errors with last comma
+		]
+	]
+
+	[Note, $commands_1,, 0]
+	[Note, $commands_2,, 0]
+
+, i]
+
+
+]/*End of ZScript*/
