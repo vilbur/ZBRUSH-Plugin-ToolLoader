@@ -13,6 +13,8 @@
 
     [RoutineCall, moveSubtoolToTop, path, index]
 
+	[Note, [StrMerge, "[StrFind, DecimationMasterData, path ]: ", [StrFind, "DecimationMasterData", path ] ] ]
+
 	/* SANITIZE DECIMATION MASTER TOOL */
 	[If, [StrFind, "DecimationMasterData", path ] > -1,
 
@@ -40,6 +42,8 @@
 		,i]
 	]
 
+
+
 	//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
 		/* ASK TO SAVE TO LAST KNOWN LOCATION, IF CANCEL then RESET save path */
 		[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ?                                                               ", path]],
@@ -51,6 +55,7 @@
 
 		//[Note, [StrMerge, "increment: ", increment ] ]
 		[VarSet, path, [StrMerge, path, ".ztl"]]
+		//[VarSet, pathNext, [StrMerge, path, ".ztl"] ]
 		[VarSet, pathNext, path ]
 
 		[If, (#increment > 0), // THEN add increamanetalnumber
@@ -91,8 +96,8 @@
 
 			[FileNameSetNext, path ]
 
+			//[Note, [StrMerge, "SAVEpath: ", path ] ]
 			[IPress, Tool:Save As]
-
 			[RoutineCall, saveToolPath, 0, path ]
 
 			[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", [FileNameExtract, path, 1 ], "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]

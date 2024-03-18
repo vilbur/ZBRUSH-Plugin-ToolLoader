@@ -24,12 +24,27 @@
 
 ,, 96,,, 48]
 
+/* LOAD TOOL
+*/
+[IButton, [StrMerge, $CONTROLS_PATH, "Load Tool"], "Save current tool\n\nKeep main tool on top"
+,
+	//[RoutineCall, saveToolBySubtool, 0 ]
+
+	[IPress,Tool:Load Tool]
+
+
+	[If, [StrLength, [FileNameGetLastTyped]  ] > 0,
+		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
+
+
+,, 96,,, 48]
+
 
 
 
 /* SAVE TOOL
 */
-[IButton, [StrMerge, $CONTROLS_PATH, "Save"], "Save current tool\n\nKeep main tool on top"
+[IButton, [StrMerge, $CONTROLS_PATH, "Save Tool"], "Save current tool\n\nKeep main tool on top"
 ,
 	[RoutineCall, saveToolBySubtool, 0 ]
 
@@ -55,12 +70,11 @@
 
 	[IPress,Tool:Save As]
 
-	[Note, [StrMerge, "FileNameGetLastTyped: ", [FileNameGetLastTyped] ] ]
+	//[Note, [StrMerge, "FileNameGetLastTyped: ", [FileNameGetLastTyped] ] ]
 
-	[If, [StrLength, path ] > 0,
-		[RoutineCall, saveToolBySubtool, 1 ]	]
+	[If, [StrLength, [FileNameGetLastTyped]  ] > 0,
+		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
 
-	//[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]
 
 ,, 96,,, 48]
 
