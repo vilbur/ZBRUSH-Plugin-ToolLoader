@@ -1,0 +1,140 @@
+/** load Tool from \tool_list.zvr
+  *
+  * @param integer $index of tool in file to load, index 0 is last used tool
+  *
+  *
+  */
+[RoutineDef, loadTool
+,
+	[RoutineCall, loadToolPath, $index ]
+
+	[If, [FileExists, $TOOL_PATH_LOADED]
+	, // THEN
+		[RoutineCall, loadToolToViewport, $TOOL_PATH_LOADED]
+
+	, // ELSE
+		[VarSet, $TOOL_LIST([Var, $index]), ""]
+
+		[RoutineCall, disableButton, $index]
+
+		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 0.5]
+	]
+
+, // PARAMS
+	$index
+]//RECORDED ZSCRIPT 2022
+[IConfig,2022]
+
+
+/* FIND SUBTOOL MATCHING NAME OF .ztl FILE
+*/
+[RoutineDef, isCurrentSubtoolMain
+,
+	/* function */
+	[VarSet, $subtool_name, [FileNameExtract, [GetActiveToolPath], 2 ]]
+	[VarSet, $subtool_path, [IGetTitle, Tool:Current Tool]]
+	[VarSet, $is_main_tool, ! (([StrLength, $subtool_name]==[StrLength, $subtool_path]) && ([StrFind, $subtool_name, $subtool_path] > -1))]
+,
+	/* parameters */
+	$is_main_tool
+]
+
+
+
+[IButton, TOOL_AND_SUBTOOL_INFO_DEBUG, "Loop subtools and compare command on different sates of tools and subtools",
+
+
+	[VarSet, $subtool_active_index, [SubToolGetActiveIndex]]
+	[VarSet, $subtool_active_name, [FileNameExtract, [GetActiveToolPath], 2 ]]
+
+	//[SubToolSelect, 0]
+
+	/*------------------------------------------------------------------------------
+		SEARCH FOR MAIN SUBTOOL
+	--------------------------------------------------------------------------------*/
+	[VarDef, $filepath_save, "" ]
+
+	[Loop, [SubToolGetCount],
+
+		//[Note, [StrMerge, "VAR: $filepath_save", "\n\nVAL: ", $filepath_save ] ]
+		[If, [StrLength, $filepath_save ] == 0
+		,
+			[SubToolSelect, i ]
+
+			[VarDef, $is_main_tool,  0 ]
+
+			[RoutineCall, isCurrentSubtoolMain, $is_main_tool ]
+			//[Note, [StrMerge, "Subtool: ", i,  "\n\nVAR: $is_main_tool", "\n\nVAL: ", $is_main_tool ] ]
+
+
+			[If, [Var, $is_main_tool] == 1,
+				[VarSet, $filepath_save, [GetActiveToolPath]]]]
+
+	, i] // end loop
+
+	/*------------------------------------------------------------------------------
+		TRY GET LAST USED PATH -- if main subtool not found
+	--------------------------------------------------------------------------------*/
+	[If, [StrLength, $filepath_save ] == 0,
+
+		[SubToolSelect, 0]
+
+		[VarSet, $last_user_dir, [FileNameExtract, [FileNameGetLastTyped], 1]]
+		[VarSet, $last_user_ext, [FileNameExtract, [FileNameGetLastTyped], 4]]
+
+		[VarSet, $ztl_ext, ".ztl"]
+
+		[VarSet, $last_file_is_ztl, (([StrLength, $last_user_ext]==[StrLength, $ztl_ext]) && ([StrFind, $last_user_ext, $ztl_ext] > -1))]
+
+		[If, [Var, $last_file_is_ztl] == 1
+		, // THEN
+
+				//[If, [MessageYesNo, [StrMerge, "SAVE TOOL TO \n\nDIR: ", [FileNameExtract, [FileNameGetLastTyped], 1], "\n\nTOOL: ", [FileNameExtract, [FileNameGetLastTyped], 2], "SAVE TOOL PATH"]]
+				[If, [MessageYesNo, [StrMerge, "SAVE TOOL TO: ", [FileNameGetLastTyped]]],
+					[VarSet, $filepath_save, [FileNameGetLastTyped]]]
+		]
+
+	]
+
+	[If, [StrLength, $filepath_save ] > 0,
+
+		[Note, [StrMerge, "PATH FOUND\n\nSAVE FILE TO", "\n\n$filepath_save: ",$filepath_save ] ]
+
+	, // ELSE
+
+		[Note, [StrMerge, "PATH NOT FOUND\n\n$filepath_save: ",$filepath_save ] ]
+
+	]
+
+
+
+
+
+	/* GET FILE PATH WORKS UNTIL MAIN TOOL IS RENAMED - NOT FULLY WORKING
+	*/
+	//[VarSet, $path_by_tool_index, [FileNameExtract, [ToolGetPath,  [ToolGetActiveIndex]], 1 ] ]
+	//
+	//
+	//
+	////[Note, [FileNameGetLastTyped],, 0]
+	//[Note, [FileNameGetLastUsed],, 0]
+	//
+	//[VarSet, $tool_name_current, [FileNameExtract, [ToolGetPath], 2]] // get name of first subtool
+	//
+	//[VarSet, $subtool_name_current, [FileNameExtract, [GetActiveToolPath], 2]]
+	//
+	//[VarSet, $path_tool_current,  [ToolGetPath, [IGet, Tool:ItemInfo] ]]
+	//
+
+
+	/*
+		• nth   subtool selected, names are same
+		• First subtool selected, names are different
+		• nth   subtool selected, names are different
+		• nth   subtool selected, subtool with tool neame not exists
+		• First subtool selected, names are same
+	*/
+
+
+
+,/*Disabled*/, 256 ,/*Hotkey*/,/*Icon*/,64]
