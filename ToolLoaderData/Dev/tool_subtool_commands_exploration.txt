@@ -1,16 +1,21 @@
-/* TEST AND EXPLAIN ZBRUSH COMMAND TOOL MADNESS:
+
+/* TEST AND EXPLAIN ZBRUSH COMMAND TOOL MADNESS, saving and renaming of subtools makes things "funny"
 
 	MAIN SUBTOOL IS FIRST SUBTOOL NAMED AS .ztl FILE
 
-	CONNECTION BETWEEN FILE AND 1st SUBTOOL:
-		is WORKING if: 1st subtool has same name as .ztl file and not been renamed after save
 
-		is LOST if:
+	TLTR: IT SEEMS THAT, IF FIRST SUBTOOL IS RENAMED ONCE, IT IS NOT POSSIBLE TO GET .ztl FILE OF CURRENT TOOL
+
+
+	CONNECTION BETWEEN .ztl FILE AND 1st SUBTOOL:
+		WORKS IF: 1st subtool has same name as .ztl file and not been renamed after save
+
+		BREAKS:
 			1 ) 1st subtool was moved in list	( conncetion is repaired if subtool is moved back to 1st place )
 			2 ) 1st subtool was renamed, then connection is lost even if tool is renamed back
 
 */
-[IButton,  TOOL AND SUBTOOL INFO DEBUG, "Loop subtools and compare command on different sates of tools and subtools",
+[IButton, TOOL_AND_SUBTOOL_INFO_DEBUG, "Loop subtools and compare command on different sates of tools and subtools",
 [IConfig,2022]
 
 
@@ -18,7 +23,56 @@
 
 	[SubToolSelect, i ]
 
-	[VarSet, $commands_1,
+
+	/*------------------------------------------------------------------------------
+
+		FIND SUBTOOL MATCHING NAME OF .ztl FILE
+
+	--------------------------------------------------------------------------------*/
+
+	/* GET .ztl FILE PATH WORKS ONLY IF MAIN SUBTOOLS IS FIRST
+	*/
+	[VarSet, $path_by_tool_index, [FileNameExtract, [ToolGetPath, [IGet, Tool:ItemInfo]], 1 ] ]
+
+
+	/* SERACH FOR MAIN SUBTOOL WORKS
+
+	   Subtool which name match .ztl filename is MAIN SUBTOOL E.G.: fooTool.ztl == Subtool:fooTool
+
+		HOW TO FIND MAIN SUBTOOL:
+			MAIN SUBTOOL   returns path to .ztl file
+			Other Subtools returns their name
+
+		RESULT:
+			IF PATH != SUBTOOL NAME
+
+	*/
+	[VarSet, $subtool_name, [FileNameExtract, [GetActiveToolPath], 2 ]]
+	[VarSet, $subtool_path, [IGetTitle, Tool:Current Tool]]
+	[VarSet, $IS_MAIN_TOOL, ! (([StrLength, $subtool_name]==[StrLength, $subtool_path]) && ([StrFind, $subtool_name, $subtool_path] > -1))]
+
+	[VarSet, $find_main_tool,
+		 [StrMerge,
+
+		 	"$subtool_path: ", $subtool_path, "\n\n",
+		 	"$subtool_name: ", $subtool_name, "\n\n",
+		 	"$IS_MAIN_TOOL: ", $IS_MAIN_TOOL, "\n\n",
+
+
+			"" // last item, prevents error with last comma on dev
+		]
+	]
+
+
+	/*------------------------------------------------------------------------------
+
+		LIST FUNCTIONS
+
+	--------------------------------------------------------------------------------*/
+
+
+
+	[VarSet, $command_fn,
 		 [StrMerge,
 
 			/* GET current tool path or name, depends on conditions:
@@ -46,19 +100,23 @@
 
 			*/
 			"SUBTOOL NAME: ",               [FileNameExtract, [GetActiveToolPath], 2 ], "\n\n"
+
+			/* Current Tool Number
+			*/
+           "[ToolGetActiveIndex]:     ",[ToolGetActiveIndex],   "\n\n"
+			"" // last item, prevents error with last comma on dev
 		]
 	]
 
 	/* STRING REACH MAX FUCKING LENGTH ROLF :D WTF, use second */
-	[VarSet, $commands_2,
+	[VarSet, $commands_info,
 		 [StrMerge,
 
-			/* THIS WORKS FINE, HMMM SWEET
+			/*
+			    GET path to current .ztl file if current subtool is MAIN SUBTOOL
 
-			    GET path to current .ztl file
-
-				WORKS IF:     MAIN SUBTOOL is on any place in subtool list
-				NOT WORKS IF: MAIN SUBTOOL was not renamed once
+				WORKS IF:   MAIN SUBTOOL is on any place in subtool list
+				BREAKS IF:  MAIN SUBTOOL was renamed once, stay broken eveen if renamed back to origin name
 			*/
 		 	"[IGetTitle, Tool:Current Tool]: ", [IGetTitle,Tool:Current Tool], "\n\n",
 
@@ -73,18 +131,37 @@
 			"[IGetTitle, Tool:ItemInfo]:     ", [IGetTitle,Tool:ItemInfo], "\n\n",
 
 
-			/* Current Tool Number
+			/* Current Tool index - same as [ToolGetActiveIndex]
 			*/
            "[IGet, Tool:ItemInfo]:     ",[IGet, Tool:ItemInfo],   "\n\n",
 
-			"" // last item, preventing errors with last comma
+
+			//"" // last item, prevents error with last comma on dev
 		]
 	]
 
-	[Note, $commands_1,, 0]
-	[Note, $commands_2,, 0]
 
-, i]
+	/*------------------------------------------------------------------------------
+		TEST INFO
+	--------------------------------------------------------------------------------*/
+	[Note, $command_fn,, 0]
+
+	//[Note, $commands_info,, 0]
+
+
+	/*------------------------------------------------------------------------------
+		TEST FUNCTIONS
+	--------------------------------------------------------------------------------*/
+
+	//[Note, $find_main_tool,, 0]
+
+	//[Note, $find_ztl_file,, 0] // WORKS UNTIL RENAME
+
+	//[Note, $path_by_tool_index,, 0] // WORKS UNTIL RENAME
+
+
+
+, i] // end loop
 
 
 ]/*End of ZScript*/
