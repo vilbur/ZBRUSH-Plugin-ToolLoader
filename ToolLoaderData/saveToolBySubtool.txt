@@ -23,25 +23,30 @@
 		/* SEARCH SAME NAME IN LIST */
 		[Loop, 3,
 
-		 	[RoutineCall, loadToolPath, i ]  // load last tool path
+			[RoutineCall, loadToolPath, i ]  // load last tool path
 
 			[VarSet, pathLoadedFileName, [FileNameExtract, $TOOL_PATH_LOADED, 2 ]] // name of tool to save
 
-
 			[If, ( nameFound == 0 && (([StrLength, saveToolName]==[StrLength, pathLoadedFileName]) && ([StrFind, saveToolName, pathLoadedFileName] > -1)))
 			, // THEN
-				//[Note, [StrMerge,
-				//	"$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED, "\n\n",
-				//	"path: ", path
-				//]]
+
+
+				[Note, [StrMerge, "$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED ] ]
+
+				[Note, [StrMerge,
+					"$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED, "\n\n",
+					"path: ", path
+				]]
 
 				[VarSet, nameFound, 1]
 
 				[VarSet, path, $TOOL_PATH_LOADED]
 			]
 		,i]
-	]
 
+		[Note, [StrMerge, "DECIAMTION NEW PATH: ", path ] ]
+
+	]
 
 
 	//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
@@ -53,18 +58,24 @@
 	/* IF PATH EXIST */
 	[If, [StrLength, path ] > 0,
 
-		//[Note, [StrMerge, "increment: ", increment ] ]
-		[VarSet, path, [StrMerge, path, ".ztl"]]
-		//[VarSet, pathNext, [StrMerge, path, ".ztl"] ]
+
+		[If, [StrFind, ".ztl", path ] == -1,
+			[VarSet, path, [StrMerge, path, ".ztl"]]]
+
 		[VarSet, pathNext, path ]
 
 		[If, (#increment > 0), // THEN add increamanetalnumber
 
 			/* SIMULATION OF FUCKIN WHILE LOOP -- loop then any increment file will be new */
-			[Loop, 100,
+			[Loop, 10,
 
 				/* BLOCK IF NEXT FILE IS FOUND */
 				[If, (#incrementFound == 0), // THEN add increamanetalnumber
+
+					//[Note, [StrMerge,
+					//	"i: ", i, "\n\n",
+					//	"incrementFound: ", incrementFound
+					//]]
 
 					[VarSet, pathNext,  [FileNameAdvance, pathNext, 2 ] ]
 
@@ -80,11 +91,12 @@
 								[VarSet, pathNext, ""]]
 
 						/* ELSE GET NEXT INCREMENT */
-
 						]
+
+					, // use first increment
+						[VarSet, incrementFound, 1 ]
 					]
 
-					/* SET NEXT PATH IN NOT CANCELED */
 					[If, [StrLength, pathNext ] > 0,
 						[VarSet, path, pathNext]]
 				]
@@ -96,7 +108,7 @@
 
 			[FileNameSetNext, path ]
 
-			//[Note, [StrMerge, "SAVEpath: ", path ] ]
+			[Note, [StrMerge, "SAVE PATH TEST: ", path ] ]
 			[IPress, Tool:Save As]
 			[RoutineCall, saveToolPath, 0, path ]
 
