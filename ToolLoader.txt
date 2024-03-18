@@ -47,8 +47,8 @@
 
 <zscriptinsert, "ToolLoaderData/loadDefaultTool.txt">	// "./ToolLoaderData/loadDefaultTool.txt"
 
-<zscriptinsert, "ToolLoaderData/saveToolBySubtool.txt">	// "./ToolLoaderData/saveToolBySubtool.txt"
 
+/* INIT $TOOL_LIST */
 [If, [FileExists, $TOOLLISTFILE]
 , // THEN
 	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
@@ -58,7 +58,8 @@
 	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
 ]
 
-
+/* SCRIPTS BELLOW USE $TOOL_LIST */
+<zscriptinsert, "ToolLoaderData/saveToolBySubtool.txt">	// "./ToolLoaderData/saveToolBySubtool.txt"
 <zscriptinsert, "ToolLoaderData/enableButtons.txt">	// "./ToolLoaderData/enableButtons.txt"
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
 

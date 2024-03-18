@@ -12,6 +12,8 @@
 	, // THEN
 		[RoutineCall, loadToolToViewport, $TOOL_PATH_LOADED]
 
+		[Note, [StrMerge, "TOOL LOADED\n\nDIR: ", [FileNameExtract, $TOOL_PATH_LOADED, 1 ], "\n\nTOOL: ", [FileNameExtract, $TOOL_PATH_LOADED, 2 ] ] ]
+
 	, // ELSE
 		[VarSet, $TOOL_LIST([Var, $index]), ""]
 

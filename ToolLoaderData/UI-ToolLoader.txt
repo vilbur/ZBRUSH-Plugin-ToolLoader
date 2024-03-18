@@ -20,7 +20,7 @@
 
 	[VarSet, $subtool_name, [StrExtract,  [IGetTitle,Tool:ItemInfo], 0, [StrLength,  [IGetTitle,Tool:ItemInfo] ] - 2 ] ] // Remove trailing "." from name
 
-	[Note, [StrMerge, "TOOL:\n\n", $subtool_name ] ]
+	[Note, [StrMerge, "PREVIOUS TOOL LAODED:\n\n", $subtool_name ] ]
 
 ,, 96,,, 48]
 
@@ -45,6 +45,24 @@
 
 ,, 96,,, 48]
 
+
+/* SAVE AS
+*/
+[IButton, [StrMerge, $CONTROLS_PATH, "Save As"], "Save as current tool\n\nKeep main tool on top"
+,
+
+	[FileNameSetNext, ""]
+
+	[IPress,Tool:Save As]
+
+	[Note, [StrMerge, "FileNameGetLastTyped: ", [FileNameGetLastTyped] ] ]
+
+	[If, [StrLength, path ] > 0,
+		[RoutineCall, saveToolBySubtool, 1 ]	]
+
+	//[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]
+
+,, 96,,, 48]
 
 
 /** GET \ LOAD TOOL BUTTONS

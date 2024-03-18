@@ -5,29 +5,89 @@
 ,
 	[VarSet, path, "" ]	// path to .ztl file
 	[VarSet, index, -1] 	// index of main subtool
+	[VarSet, nameFound, 0] 	// index of main subtool
+	[VarSet, incrementFound, 0]
+
 
     [RoutineCall, getSavePath, path, index]
 
     [RoutineCall, moveSubtoolToTop, path, index]
 
+	/* SANITIZE DECIMATION MASTER TOOL */
+	[If, [StrFind, "DecimationMasterData", path ] > -1,
+
+		[VarSet, saveToolName, [FileNameExtract, path, 2 ]] // name of tool to save
+
+		/* SEARCH SAME NAME IN LIST */
+		[Loop, 3,
+
+		 	[RoutineCall, loadToolPath, i ]  // load last tool path
+
+			[VarSet, pathLoadedFileName, [FileNameExtract, $TOOL_PATH_LOADED, 2 ]] // name of tool to save
+
+
+			[If, ( nameFound == 0 && (([StrLength, saveToolName]==[StrLength, pathLoadedFileName]) && ([StrFind, saveToolName, pathLoadedFileName] > -1)))
+			, // THEN
+				//[Note, [StrMerge,
+				//	"$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED, "\n\n",
+				//	"path: ", path
+				//]]
+
+				[VarSet, nameFound, 1]
+
+				[VarSet, path, $TOOL_PATH_LOADED]
+			]
+		,i]
+	]
+
+	//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
+		/* ASK TO SAVE TO LAST KNOWN LOCATION, IF CANCEL then RESET save path */
+		[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ?                                                               ", path]],
+			[VarSet, path, ""]]
+	//]
+
 	/* IF PATH EXIST */
 	[If, [StrLength, path ] > 0,
 
+		//[Note, [StrMerge, "increment: ", increment ] ]
+		[VarSet, path, [StrMerge, path, ".ztl"]]
+		[VarSet, pathNext, path ]
 
 		[If, (#increment > 0), // THEN add increamanetalnumber
-			[VarSet, path,  [FileNameAdvance, path, 2 ] ]]
 
-		/* IF MAIN SUBBTOOL NOT EISTS */
-		//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
-			/* ASK TO SAVE TO LAST KNOWN LOCATION, IF CANCEL then RESET save path */
-			[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ?                                                               ", path]],
-				[VarSet, path, ""]]
-		//]
+			/* SIMULATION OF FUCKIN WHILE LOOP -- loop then any increment file will be new */
+			[Loop, 100,
+
+				/* BLOCK IF NEXT FILE IS FOUND */
+				[If, (#incrementFound == 0), // THEN add increamanetalnumber
+
+					[VarSet, pathNext,  [FileNameAdvance, pathNext, 2 ] ]
+
+					[If, ([FileExists, pathNext] == 1 ),
+
+						[If, [MessageYesNo, [StrMerge, "FILE ", [FileNameExtract, pathNext, 2 ], " EXISTS GET NEXT INCREMENT ?         ", [FileNameAdvance, pathNext, 2 ] ]] == 0
+						,// THEN USE THIS INCREMENT
+
+							[VarSet, incrementFound, 1 ]
+
+							/* CANCEL SAVE IF NOT OVERWRITE */
+							[If, ! [MessageYesNo, [StrMerge, "OVERWRITE FILE ?                                                               ", pathNext]],
+								[VarSet, pathNext, ""]]
+
+						/* ELSE GET NEXT INCREMENT */
+
+						]
+					]
+
+					/* SET NEXT PATH IN NOT CANCELED */
+					[If, [StrLength, pathNext ] > 0,
+						[VarSet, path, pathNext]]
+				]
+			,i]
+		]
 
 		/* SAVE FILE IF PATH EXIST AND USER COMFIRM */
 		[If, [StrLength, path ] > 0,
-
-			[VarSet, path, [StrMerge, path, ".ztl"]]
 
 			[FileNameSetNext, path ]
 
@@ -135,7 +195,6 @@
 
 	, i] // end loop
 
-
 ,
 	/* parameters and output */
 	path, index
@@ -157,13 +216,11 @@
 
 	[VarSet, ismaintool, (([StrLength, xname_subtool]!=[StrLength, current_subtool_path]) && ([StrFind, xname_subtool, current_subtool_path] > 0))]
 
-	[Note, [StrMerge,
-		"xname_subtool: ", xname_subtool, "\n\n",
-		"current_subtool_path: ", current_subtool_path, "\n\n",
-		"ismaintool: ", ismaintool
-	]]
-
-
+	//[Note, [StrMerge,
+	//	"xname_subtool: ", xname_subtool, "\n\n",
+	//	"current_subtool_path: ", current_subtool_path, "\n\n",
+	//	"ismaintool: ", ismaintool
+	//]]
 ,
 	/* parameters */
 	ismaintool
