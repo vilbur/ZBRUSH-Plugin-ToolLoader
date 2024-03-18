@@ -1,0 +1,225 @@
+/**
+  *
+  */
+[RoutineDef, saveToolBySubtool
+,
+	[VarSet, path, "" ]	// path to .ztl file
+	[VarSet, index, -1] 	// index of main subtool
+
+    [RoutineCall, getSavePath, path, index]
+
+    [RoutineCall, moveSubtoolToTop, path, index]
+
+	/* IF PATH EXIST */
+	[If, [StrLength, path ] > 0,
+
+
+		[If, (#increment > 0), // THEN add increamanetalnumber
+			[VarSet, path,  [FileNameAdvance, path, 2 ] ]]
+
+		/* IF MAIN SUBBTOOL NOT EISTS */
+		//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
+			/* ASK TO SAVE TO LAST KNOWN LOCATION, IF CANCEL then RESET save path */
+			[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ?                                                               ", path]],
+				[VarSet, path, ""]]
+		//]
+
+		/* SAVE FILE IF PATH EXIST AND USER COMFIRM */
+		[If, [StrLength, path ] > 0,
+
+			[VarSet, path, [StrMerge, path, ".ztl"]]
+
+			[FileNameSetNext, path ]
+
+			[IPress, Tool:Save As]
+
+			[RoutineCall, saveToolPath, 0, path ]
+
+			[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", [FileNameExtract, path, 1 ], "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]
+
+		]
+	]
+
+
+, /* parameters and output */
+	increment
+]
+
+
+/*------------------------------------------------------------------------------
+
+	• nth   subtool selected, names are same
+	• First subtool selected, names are different
+	• nth   subtool selected, names are different
+	• nth   subtool selected, subtool with tool neame not exists
+	• First subtool selected, names are same
+
+--------------------------------------------------------------------------------*/
+
+[RoutineDef, getSavePath
+,
+	/* GET FILE PATH IF CONNECTION BETWEEN FILE AND SUBTOOL EXIST */
+	[RoutineCall, searchForFilepathInSubTools, path, index]
+
+	/* GET LAST TYPED FILE PATH IF CONNECTION BETWEEN FILE AND SUBTOOL EXIST */
+	[If, [StrLength, path ] == 0,
+         [RoutineCall, searchForSubtoolByLastTypedPath, path, index]]
+
+, /* parameters and output */
+	path, index
+]
+
+/** moveSubtoolToTop
+  */
+[RoutineDef, moveSubtoolToTop
+,
+	/* IF PATH EXISTS */
+	[If, [StrLength, path ] > 0,
+
+
+		/* MOVE MAIN SUBTOOL ON TOP BEFORE SAVE */
+		[If, [Var, index ] > 0,
+
+			[VarSet, number_subtool, (#index + 1) ]
+
+			/* ASK FOR COMFIRM BEFORE MOVE */
+            [If, [MessageYesNo, [StrMerge, "MAIN SUBTOOL '", [FileNameExtract, path, 2 ], "' is ", number_subtool,  ". subtool in list.                                  MOVE THIS SUBTOOL TO TOP BEFORE SAVE ? " ]  ],
+
+				[SubToolSelect, [Var, index] ]
+
+				[IKeyPress,SHIFT,[IPress,Tool:SubTool:MoveUp]]
+			]
+		]
+	]
+
+, /* parameters and output */
+	path, index
+]
+
+
+/*------------------------------------------------------------------------------
+	SEARCH FOR SUBTOOL WHICH HOLDS FILEPATH
+
+	1) MAIN SUBTOOL CAN BE MOVED
+	2) BUT MUST NOT BE RENAMED
+
+	@return fiepath and subtool inde3x
+
+--------------------------------------------------------------------------------*/
+[RoutineDef, searchForFilepathInSubTools
+,
+	//[VarSet, xname_subtool, ]
+	//[VarSet, current_subtool_path, ]
+
+	[VarSet, ismaintool,  0 ]
+
+	[Loop, [SubToolGetCount],
+		[If, [StrLength, path ] == 0
+		,
+			[SubToolSelect, i ]
+
+			[VarSet, ismaintool,  0 ]
+
+			[RoutineCall, isCurrentSubtoolMain, ismaintool ]
+
+			//[Note, [StrMerge, "Subtool: ", i,  "\n\nVAR: ismaintool", "\n\nVAL: ", ismaintool ] ]
+
+			/* IF MAIN SUBTOOL FOUND */
+			[If, (#ismaintool > 0), // THEN
+				//[Note, "SET INDEX",, 0]
+				[VarSet, path, [GetActiveToolPath]]
+
+				[VarSet, index, i ]
+			]
+		]
+
+	, i] // end loop
+
+
+,
+	/* parameters and output */
+	path, index
+]
+
+/*--------------------------------------------------------------------------------------------------------
+
+	FIND SUBTOOL MATCHING NAME OF .ztl FILE
+
+	Compare subtool name and subtool path,
+	mian sutbtool returns PATH,
+	but other subtools Returns its name
+
+----------------------------------------------------------------------------------------------------------*/
+[RoutineDef, isCurrentSubtoolMain
+,
+	[VarSet, xname_subtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
+	[VarSet, current_subtool_path, [IGetTitle, Tool:Current Tool]]
+
+	[VarSet, ismaintool, (([StrLength, xname_subtool]!=[StrLength, current_subtool_path]) && ([StrFind, xname_subtool, current_subtool_path] > 0))]
+
+	[Note, [StrMerge,
+		"xname_subtool: ", xname_subtool, "\n\n",
+		"current_subtool_path: ", current_subtool_path, "\n\n",
+		"ismaintool: ", ismaintool
+	]]
+
+
+,
+	/* parameters */
+	ismaintool
+]
+
+
+/*--------------------------------------------------------------------------------------------------------
+
+	TRY GET LAST USED PATH AND SEARCH FOR SUBTOOL NAMED AS FILE
+
+	1) Main subtool can be MOVED
+	2) Main subtool can be RENAMED
+
+	3) FileNameGetLastTyped must be path to ".ztl"
+	4) Subtool matching ".ztl" file msut exists
+
+	@return fiepath and subtool inde3x
+
+----------------------------------------------------------------------------------------------------------*/
+
+[RoutineDef, searchForSubtoolByLastTypedPath
+,
+	[VarSet, name_last_used, [FileNameExtract, [FileNameGetLastTyped], 2]]
+	[VarSet, ext_last_used,  [FileNameExtract, [FileNameGetLastTyped], 4]]
+
+	[VarSet, ztl_ext, ".ztl"]
+
+	[VarSet, last_file_is_ztl, (([StrLength, ext_last_used]==[StrLength, ztl_ext]) && ([StrFind, ext_last_used, ztl_ext] > -1))]
+
+	/* IF PATH TO FILE IS ".ztl" */
+	[If, (([StrLength, ext_last_used]==[StrLength, ztl_ext]) && ([StrFind, ext_last_used, ztl_ext] > -1)) == 1
+	//[If, [Var, last_file_is_ztl]
+	, // THEN
+		[VarSet, path, [FileNameGetLastTyped]]
+
+		[SubToolSelect, 0]
+
+		/* SEARCH FOR SUBTOOOL BY FILENAME */
+		[Loop, [SubToolGetCount],
+
+			[If,  ( #index < 0 )
+			, // THEN
+				[SubToolSelect, i ]
+
+				/* COMPARE FILENAME AND SUBTOOL NAME */
+				[VarSet, xname_subtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
+
+				[VarSet, found_subtool, (([StrLength, xname_subtool]==[StrLength, name_last_used]) && ([StrFind, xname_subtool, name_last_used] > -1))]
+
+				/* GET SUBTOOL INDEX IF FOUND  */
+				[If,  ( [Var, found_subtool] > 0 ),
+					[VarSet, index, i ]]
+			]
+
+		, i] // end loop
+	]
+, /* parameters and output */
+	path, index
+]

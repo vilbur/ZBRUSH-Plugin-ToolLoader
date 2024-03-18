@@ -47,6 +47,7 @@
 
 <zscriptinsert, "ToolLoaderData/loadDefaultTool.txt">	// "./ToolLoaderData/loadDefaultTool.txt"
 
+<zscriptinsert, "ToolLoaderData/saveToolBySubtool.txt">	// "./ToolLoaderData/saveToolBySubtool.txt"
 
 [If, [FileExists, $TOOLLISTFILE]
 , // THEN

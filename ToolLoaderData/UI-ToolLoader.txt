@@ -1,47 +1,50 @@
 [IPalette, $PLUGIN_NENU ]
 
-/** LOAD LAST
+/** LOAD LAST TOOL
   *
   */
 [IButton,  [StrMerge, $CONTROLS_PATH, "Last Tool"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, 48]
 
-
-/* SAVE
+/** LOAD PREVIOUS TOOL
+*
 */
-[IButton, [StrMerge, $CONTROLS_PATH, "Save"], "Save current tool"
+[IButton, [StrMerge, $CONTROLS_PATH, "Prev Tool"], "Get previous tool"
 ,
+	//[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 2], ".ztl" ] ]
 
-	[VarSet, $tool_path_next, [StrMerge, [ToolGetPath, [IGet, Tool:ItemInfo] ], ".ztl" ] ]
+    [VarSet, toolID, [ToolGetActiveIndex]]
 
+   //switch to the tool you want to append:
+   //(this code assumes that the append tool was the most recently loaded)
+   [ISet, Tool:Item Info,[IGetMax,Tool:Item Info]]
 
-	[FileNameSetNext, $tool_path_next ]
+	[VarSet, $subtool_name, [StrExtract,  [IGetTitle,Tool:ItemInfo], 0, [StrLength,  [IGetTitle,Tool:ItemInfo] ] - 2 ] ] // Remove trailing "." from name
 
-	[IPress, Tool:Save As]
-
-	[RoutineCall, saveToolPath, 0, $tool_path_next ]
-
-	[Note, [StrMerge, "TOOL SAVED:\n\n", [FileNameExtract, $tool_path_next, 2 ] ] ]
+	[Note, [StrMerge, "TOOL:\n\n", $subtool_name ] ]
 
 ,, 96,,, 48]
 
 
-/* SAVE +
+
+
+/* SAVE TOOL
 */
-[IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save incremental"
+[IButton, [StrMerge, $CONTROLS_PATH, "Save"], "Save current tool\n\nKeep main tool on top"
 ,
-	[VarSet, $tool_path_next, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 2], ".ztl" ] ]
-
-
-	[FileNameSetNext, $tool_path_next ]
-
-	[IPress, Tool:Save As]
-
-	[RoutineCall, saveToolPath, 0, $tool_path_next ]
-
-
-	[Note, [StrMerge, "TOOL SAVED:\n\n", [FileNameExtract, $tool_path_next, 2 ] ] ]
+	[RoutineCall, saveToolBySubtool, 0 ]
 
 ,, 96,,, 48]
+
+
+
+/* SAVE TOOL INCREMENT
+*/
+[IButton, [StrMerge, $CONTROLS_PATH, "Save +"], "Save current tool incremental\n\nKeep main tool on top"
+,
+	[RoutineCall, saveToolBySubtool, 1 ]
+
+,, 96,,, 48]
+
 
 
 /** GET \ LOAD TOOL BUTTONS
@@ -55,6 +58,8 @@
 
 [IButton,  [StrMerge, $CONTROLS_PATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	48]
 [IButton,  [StrMerge, $CONTROLS_PATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, $TOOL_LIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	48]
+
+
 
 /** RESET TOOLS
   *
@@ -71,6 +76,25 @@
 	]
 
 ,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
+
+
+/** RESET TOOLS
+  *
+  */
+[IButton, [StrMerge, $CONTROLS_PATH, "C"], "Show path to current tool"
+,
+	[VarSet, $name_current_tool, [ToolGetPath ] ]
+	[VarSet, $name_tool_current, [FileNameExtract, [ToolGetPath], 2]]
+	[VarSet, $path_tool_current, [ToolGetPath]]
+
+
+	[Note,
+
+		[Note, [StrMerge, "CURRENT TOOL SAVED\n\nDIR: ", [FileNameExtract, $path_tool_current, 1 ], "\n\nTOOL: ", [FileNameExtract, $name_current_tool, 2 ] ] ]
+	 ,, 0]
+
+,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
+
 
 /** LOAD SPHERE, set edit mode and convert to polymesh
   *

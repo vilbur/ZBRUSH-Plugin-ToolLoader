@@ -32,7 +32,7 @@
 
 	/* GET .ztl FILE PATH WORKS ONLY IF MAIN SUBTOOLS IS FIRST
 	*/
-	[VarSet, $path_by_tool_index, [FileNameExtract, [ToolGetPath, [IGet, Tool:ItemInfo]], 1 ] ]
+	[VarSet, path_by_tool_index, [FileNameExtract, [ToolGetPath, [IGet, Tool:ItemInfo]], 1 ] ]
 
 
 	/* SERACH FOR MAIN SUBTOOL WORKS
@@ -47,19 +47,17 @@
 			IF PATH != SUBTOOL NAME
 
 	*/
-	[VarSet, $subtool_name, [FileNameExtract, [GetActiveToolPath], 2 ]]
-	[VarSet, $subtool_path, [IGetTitle, Tool:Current Tool]]
-	[VarSet, $IS_MAIN_TOOL, ! (([StrLength, $subtool_name]==[StrLength, $subtool_path]) && ([StrFind, $subtool_name, $subtool_path] > -1))]
+	[VarSet, subtoolName, [FileNameExtract, [GetActiveToolPath], 2 ]]
+	[VarSet, subtoolPath, [IGetTitle, Tool:Current Tool]]
+	[VarSet, IS_MAIN_TOOL, ! (([StrLength, subtoolName]==[StrLength, subtoolPath]) && ([StrFind, subtoolName, subtoolPath] > -1))]
 
-	[VarSet, $find_main_tool,
+	[VarSet, find_main_tool,
 		 [StrMerge,
 
-		 	"$subtool_path: ", $subtool_path, "\n\n",
-		 	"$subtool_name: ", $subtool_name, "\n\n",
-		 	"$IS_MAIN_TOOL: ", $IS_MAIN_TOOL, "\n\n",
+		 	"$subtoolPath: ", subtoolPath, "\n\n",
+		 	"$subtoolName: ", subtoolName, "\n\n",
+		 	"$IS_MAIN_TOOL: ", IS_MAIN_TOOL, "\n\n"
 
-
-			"" // last item, prevents error with last comma on dev
 		]
 	]
 
@@ -72,7 +70,7 @@
 
 
 
-	[VarSet, $command_fn,
+	[VarSet, command_fn,
 		 [StrMerge,
 
 			/* GET current tool path or name, depends on conditions:
@@ -80,7 +78,7 @@
 				2) return NAME of 1st subtool        IF CONNECTION IS LOST
 
 			*/
-			"[ToolGetPath]: ",       [ToolGetPath], "\n\n",
+			"[ToolGetPath]: ", [ToolGetPath], "\n\n",
 
 			/* GET current subtool path or name, depends on conditions:
 				1) return PATH to current subtool file, IF CONNECTION WORKS
@@ -94,74 +92,75 @@
 				2) return ""                         IF CONNECTION IS LOST
 
 			*/
-			"FILE DIR: ",               [FileNameExtract, [ToolGetPath], 1 ], "\n\n",
+			"FILE DIR: ", [FileNameExtract, [ToolGetPath], 1 ], "\n\n",
 
 			/* GET name of current subtool EVERY TIME - GREAT, AWESOME, UNBELIEVABLE !!!
 
 			*/
-			"SUBTOOL NAME: ",               [FileNameExtract, [GetActiveToolPath], 2 ], "\n\n"
+			"SUBTOOL NAME: ", [FileNameExtract, [GetActiveToolPath], 2 ], "\n\n"
 
 			/* Current Tool Number
 			*/
-           "[ToolGetActiveIndex]:     ",[ToolGetActiveIndex],   "\n\n"
-			"" // last item, prevents error with last comma on dev
+           //"[ToolGetActiveIndex]: ", [ToolGetActiveIndex] // THIS CAUSES ERO< STRING IS PROBABLY FUULL AND NEED TO BE SPLIT
+
 		]
 	]
 
+	[Note, [StrLength, command_fn ]  ,, 0]
 	/* STRING REACH MAX FUCKING LENGTH ROLF :D WTF, use second */
-	[VarSet, $commands_info,
-		 [StrMerge,
-
-			/*
-			    GET path to current .ztl file if current subtool is MAIN SUBTOOL
-
-				WORKS IF:   MAIN SUBTOOL is on any place in subtool list
-				BREAKS IF:  MAIN SUBTOOL was renamed once, stay broken eveen if renamed back to origin name
-			*/
-		 	"[IGetTitle, Tool:Current Tool]: ", [IGetTitle,Tool:Current Tool], "\n\n",
-
-
-			/* GET current tool\subtool name ( Selected subtool appears as tool )
-
-				USELESS:  return name with trailing "." E.G.: "fuckin-subtool."
-
-				USE THIS: [FileNameExtract, [GetActiveToolPath], 2 ]
-
-			*/
-			"[IGetTitle, Tool:ItemInfo]:     ", [IGetTitle,Tool:ItemInfo], "\n\n",
-
-
-			/* Current Tool index - same as [ToolGetActiveIndex]
-			*/
-           "[IGet, Tool:ItemInfo]:     ",[IGet, Tool:ItemInfo],   "\n\n",
-
-
-			//"" // last item, prevents error with last comma on dev
-		]
-	]
+//	[VarSet, commands_info,
+//		 [StrMerge,
+//
+//			/*
+//			    GET path to current .ztl file if current subtool is MAIN SUBTOOL
+//
+//				WORKS IF:   MAIN SUBTOOL is on any place in subtool list
+//				BREAKS IF:  MAIN SUBTOOL was renamed once, stay broken eveen if renamed back to origin name
+//			*/
+//		 	"[IGetTitle, Tool:Current Tool]: ", [IGetTitle,Tool:Current Tool], "\n\n",
+//
+//
+//			/* GET current tool\subtool name ( Selected subtool appears as tool )
+//
+//				USELESS:  return name with trailing "." E.G.: "fuckin-subtool."
+//
+//				USE THIS: [FileNameExtract, [GetActiveToolPath], 2 ]
+//
+//			*/
+//			"[IGetTitle, Tool:ItemInfo]:     ", [IGetTitle,Tool:ItemInfo], "\n\n",
+//
+//
+//			/* Current Tool index - same as [ToolGetActiveIndex]
+//			*/
+//           "[IGet, Tool:ItemInfo]:     ",[IGet, Tool:ItemInfo],   "\n\n",
+//
+//
+//			//"" // last item, prevents error with last comma on dev
+//		]
+//	]
 
 
 	/*------------------------------------------------------------------------------
 		TEST INFO
 	--------------------------------------------------------------------------------*/
-	[Note, $command_fn,, 0]
+	//[Note, command_fn,, 0]
 
-	//[Note, $commands_info,, 0]
+	//[Note, commands_info,, 0]
 
 
 	/*------------------------------------------------------------------------------
 		TEST FUNCTIONS
 	--------------------------------------------------------------------------------*/
 
-	//[Note, $find_main_tool,, 0]
+	[Note, find_main_tool,, 0]
 
-	//[Note, $find_ztl_file,, 0] // WORKS UNTIL RENAME
+	//[Note, find_ztl_file,, 0] // WORKS UNTIL RENAME
 
-	//[Note, $path_by_tool_index,, 0] // WORKS UNTIL RENAME
+	//[Note, path_by_tool_index,, 0] // WORKS UNTIL RENAME
 
 
 
 , i] // end loop
 
 
-]/*End of ZScript*/
+,/*Disabled*/, 256 ,/*Hotkey*/,/*Icon*/,64]
