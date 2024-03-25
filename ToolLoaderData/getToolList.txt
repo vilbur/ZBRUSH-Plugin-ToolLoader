@@ -2,16 +2,16 @@
   */
 [RoutineDef, getToolList
 ,
-	[Loop,[VarSize, $TOOL_LIST]
+	[Loop,[VarSize, TOOLLIST]
 	,
-		//[Note, [Var, $TOOL_LIST([Var, $i])],, 0.5]
-		[VarSet, tool_path, [Var, $TOOL_LIST([Var, $i])] ]
+		//[Note, [Var, TOOLLIST([Var, i])],, 0.5]
+		[VarSet, toolpath, [Var, TOOLLIST([Var, i])] ]
 
-		[If, ! [FileExists, tool_path]
+		[If, ! [FileExists, toolpath]
 		, // THEN
-			[VarSet, $TOOL_LIST([Var, $i]), ""]
+			[VarSet, TOOLLIST([Var, i]), ""]
 		]
-	,$i]
+	,i]
 
 ]
 //[IButton, "getToolList()" , "", [RoutineCall, getToolList] ]

@@ -3,15 +3,15 @@
   */
 [RoutineDef, loadToolToViewport
 ,
-	[VarSet, $current_stroke, [IGetTitle, STROKE:ItemInfo]]
+	[VarSet, currentstroke, [IGetTitle, STROKE:ItemInfo]]
 
-	//[Note, $current_stroke ]
+	//[Note, currentstroke ]
 
 	[IGet, ALPHA:ItemInfo]
 
 	[IKeyPress, 78,[IPress, Document:New Document]]
 
-	[FileNameSetNext, $tool_path ]
+	[FileNameSetNext, toolpath ]
 	[IPress,Tool:Load Tool]
 
 	[IPress, Stroke:DragRect]
@@ -21,9 +21,9 @@
 
 	[IPress, Draw:Perspective]
 
-	[If, [Var, $current_stroke]
+	[If, [Var, currentstroke]
 	, // THEN
-		[IPress, [StrMerge, "Stroke:", $current_stroke] ]
+		[IPress, [StrMerge, "Stroke:", currentstroke] ]
 	]
 
 	/* ROTATE CAMERA TO 45° View */
@@ -32,8 +32,8 @@
 
 	[IPress, Transform:Fit]
 
-	[RoutineCall, saveToolPath, 0, $tool_path ] // Save as last used tool
+	[RoutineCall, saveToolPath, 0, toolpath ] // Save as last used tool
 
 , // PARAMS
-	$tool_path
+	toolpath
 ]

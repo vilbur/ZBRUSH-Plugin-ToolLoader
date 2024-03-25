@@ -6,32 +6,34 @@
 
 
   */
-[VarSet, $PLUGIN_NAME, 	"ToolLoader"]
-//[VarSet, $PLUGIN_SUBMENU, 	"Submenu"]
+[VarSet, PLUGINNAME, 	"ToolLoader"]
+//[VarSet, PLUGINSUBMENU, 	"Submenu"]
 
 
-[VarSet, $PLUGIN_NENU,	[StrMerge, "~", $PLUGIN_NAME ]]
-[VarSet, $PLUGIN_DATA_PATH,	[StrMerge, $PLUGIN_NAME, "Data\\" ]]
-//[VarSet, $PLUGIN_DATA_PATH,	[FileNameResolvePath, [StrMerge, $PLUGIN_NAME, "\\", $PLUGIN_NAME, "Data" ]]]
+[VarSet, PLUGINNENU,	[StrMerge, "~", PLUGINNAME ]]
+[VarSet, PLUGINDATAPATH,	[StrMerge, PLUGINNAME, "Data\\" ]]
+//[VarSet, PLUGINDATAPATH,	[FileNameResolvePath, [StrMerge, PLUGINNAME, "\\", PLUGINNAME, "Data" ]]]
 
 
-[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":"]]	// MENU PATH: Menu > Submenu > Control
-//[VarSet, $CONTROLS_PATH,	[StrMerge, $PLUGIN_NENU, ":", $PLUGIN_SUBMENU, ":"]]	// FULL PATH: Menu > Submenu > Control
-//[VarSet, $CONTROLS_PATH,	"" ]	// DEV controls in script pane
+[VarSet, CONTROLSPATH,	[StrMerge, PLUGINNENU, ":"]]	// MENU PATH: Menu > Submenu > Control
+//[VarSet, CONTROLSPATH,	[StrMerge, PLUGINNENU, ":", PLUGINSUBMENU, ":"]]	// FULL PATH: Menu > Submenu > Control
+//[VarSet, CONTROLSPATH,	"" ]	// DEV controls in script pane
 
 
-[VarDef, $TOOL_PATH_LOADED, ""]
+[VarDef, TOOLPATHLOADED, ""]
 
-[VarSet, TOOL_LIST_LENGTH, 4 ]
+[VarSet, TOOLLISTLENGTH, 4 ]
 
-[VarDef, $TOOL_LIST([Var, TOOL_LIST_LENGTH]), ""] // index 0 is for last used tool
-[VarDef,	$CONFIG(1) ]
+[VarDef, TOOLLIST([Var, TOOLLISTLENGTH]), ""] // index 0 is for last used tool
+[VarDef,	CONFIG(1) ]
 
 
-//[VarDef, $TOOLLISTFILE, [StrMerge, $PLUGIN_DATA, "\\tool_list.zvr"] ]
-[VarDef, $TOOLLISTFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\tool_list.zvr"] ] ]
-[VarDef, $CONFIGFILE,	[FileNameResolvePath, [StrMerge, $PLUGIN_DATA_PATH, "\\config.zvr"] ] ]
+//[VarDef, TOOLLISTFILE, [StrMerge, PLUGINDATA, "\\toollist.zvr"] ]
+[VarDef, TOOLLISTFILE,	[FileNameResolvePath, [StrMerge, PLUGINDATAPATH, "\\toollist.zvr"] ] ]
+[VarDef, CONFIGFILE,	[FileNameResolvePath, [StrMerge, PLUGINDATAPATH, "\\config.zvr"] ] ]
 
+
+[VarSet, ZFILEUTILSDLL, [StrMerge, PLUGINDATAPATH, "\ZFileUtils64.dll"]]
 
 <zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getNewToolList.txt"
 
@@ -48,17 +50,17 @@
 <zscriptinsert, "ToolLoaderData/loadDefaultTool.txt">	// "./ToolLoaderData/loadDefaultTool.txt"
 
 
-/* INIT $TOOL_LIST */
-[If, [FileExists, $TOOLLISTFILE]
+/* INIT TOOLLIST */
+[If, [FileExists, TOOLLISTFILE]
 , // THEN
-	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
+	[VarLoad, TOOLLIST, TOOLLISTFILE]
 
 	[RoutineCall, getToolList]
 ,
-	[VarSave, $TOOL_LIST, $TOOLLISTFILE]
+	[VarSave, TOOLLIST, TOOLLISTFILE]
 ]
 
-/* SCRIPTS BELLOW USE $TOOL_LIST */
+/* SCRIPTS BELLOW USE TOOLLIST */
 <zscriptinsert, "ToolLoaderData/saveToolBySubtool.txt">	// "./ToolLoaderData/saveToolBySubtool.txt"
 <zscriptinsert, "ToolLoaderData/enableButtons.txt">	// "./ToolLoaderData/enableButtons.txt"
 <zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"

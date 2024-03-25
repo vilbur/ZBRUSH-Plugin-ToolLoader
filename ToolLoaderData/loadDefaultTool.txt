@@ -1,27 +1,47 @@
-/** load Tool from \tool_list.zvr
+/** load Tool from \toollist.zvr
   *
-  * @param integer $index of tool in file to load, index 0 is last used tool
+  * @param integer index of tool in file to load, index 0 is last used tool
   *
   *
   */
 [RoutineDef, loadDefaultTool
 ,
 
-	[VarSet, $tool_name_full, [StrMerge, "Tool:", $tool_name]]
+	[VarSet, toolnamefull, [StrMerge, "Tool:", toolname]]
 
 
 	[IPress,Tool:SimpleBrush]
 
 
-	[IPress, [Var, $tool_name_full] ]
+	[IPress, [Var, toolnamefull] ]
 
 	[CanvasStroke,(ZObjStrokeV02n78=H4BCV428YH4BCV428K1Xh4BC80v42880H4BCV429H4BCV436H4BCV440H4BCV44BH4BCV457H4BCV46EH4BCV485H4BCV498H4BCV4A9H4BCV4B7H4BCV4C7H4BCV4D6H4BCV4E4H4BCV4F0H4BCV4FFH4BCV50EH4BCV517H4BCV526H4BCV532H4BCV540H4BCV54BH4BCV54EH4BCV557H4BCV55CH4BCV565H4BCV570H4BCV57CH4BCV584H4BCV592H4BCV59EH4BCV5AAH4BCV5B0H4BCV5BAH4BCV5C1H4BCV5CEH4BCV5D5H4BCV5E3H4BCV5E8H4BCV5ECH4BCV5F2H4BCV5FBH4BCV5FEH4BCV601H4BCV604H4BCV607H4BCV60AH4BCV60CH4BCV613H4BCV615H4BCV617H4BCV61CH4BCV61EH4BCV621H4BCV623H4BCV626H4BCV628H4BCV62EH4BCV630H4BCV631H4BCV633H4BCV635H4BCV636H4BCV638H4BCV63AH4BCV63CH4BCV63DH4BCV63EH4BCV640H4BCV641H4BCV642H4BCV643H4BCV644H4BCV645H4BCV646H4BCV646)]
 
 	[IPress,Transform: Edit]
 
 	[IPress,Tool:Make PolyMesh3D]
-	
+
+	[RoutineCall, renameSubtool, toolname]
 
 , // PARAMS
-	$tool_name /* E.G.: Sphere3D */
+	toolname /* E.G.: Sphere3D */
+]
+
+/* RENAME SUBTOOL
+*/
+[RoutineDef, renameSubtool
+,
+	//[RoutineCall, CheckSystem]
+
+	[VarSet, buttonpath, "Tool:SubTool:Rename"]
+	//set buttonpath to the button you want
+	//"Tool:SubTool:Rename" - for SubTool
+	//"Tool:Layers:Rename" - for Layers
+	//"Preferences:Transpose Units:Set Units" - for Transpose Units
+	[If, (([IExists, buttonpath]) && ([IsEnabled, buttonpath])),
+	  [FileExecute, [Var, ZFILEUTILSDLL], RenameSetNext, newname]
+	  [IPress, buttonpath]
+	]
+, /* parameters */
+	newname
 ]

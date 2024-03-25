@@ -15,7 +15,7 @@
 			2 ) 1st subtool was renamed, then connection is lost even if tool is renamed back
 
 */
-[IButton, TOOL_AND_SUBTOOL_INFO_DEBUG, "Loop subtools and compare command on different sates of tools and subtools",
+[IButton, TOOLANDSUBTOOLINFODEBUG, "Loop subtools and compare command on different sates of tools and subtools",
 [IConfig,2022]
 
 
@@ -32,7 +32,7 @@
 
 	/* GET .ztl FILE PATH WORKS ONLY IF MAIN SUBTOOLS IS FIRST
 	*/
-	[VarSet, path_by_tool_index, [FileNameExtract, [ToolGetPath, [IGet, Tool:ItemInfo]], 1 ] ]
+	[VarSet, pathbytoolindex, [FileNameExtract, [ToolGetPath, [IGet, Tool:ItemInfo]], 1 ] ]
 
 
 	/* SERACH FOR MAIN SUBTOOL WORKS
@@ -49,14 +49,14 @@
 	*/
 	[VarSet, subtoolName, [FileNameExtract, [GetActiveToolPath], 2 ]]
 	[VarSet, subtoolPath, [IGetTitle, Tool:Current Tool]]
-	[VarSet, IS_MAIN_TOOL, ! (([StrLength, subtoolName]==[StrLength, subtoolPath]) && ([StrFind, subtoolName, subtoolPath] > -1))]
+	[VarSet, ISMAINTOOL, ! (([StrLength, subtoolName]==[StrLength, subtoolPath]) && ([StrFind, subtoolName, subtoolPath] > -1))]
 
-	[VarSet, find_main_tool,
+	[VarSet, findmaintool,
 		 [StrMerge,
 
-		 	"$subtoolPath: ", subtoolPath, "\n\n",
-		 	"$subtoolName: ", subtoolName, "\n\n",
-		 	"$IS_MAIN_TOOL: ", IS_MAIN_TOOL, "\n\n"
+		 	"subtoolPath: ", subtoolPath, "\n\n",
+		 	"subtoolName: ", subtoolName, "\n\n",
+		 	"ISMAINTOOL: ", ISMAINTOOL, "\n\n"
 
 		]
 	]
@@ -70,7 +70,7 @@
 
 
 
-	[VarSet, command_fn,
+	[VarSet, commandfn,
 		 [StrMerge,
 
 			/* GET current tool path or name, depends on conditions:
@@ -106,9 +106,9 @@
 		]
 	]
 
-	[Note, [StrLength, command_fn ]  ,, 0]
+	[Note, [StrLength, commandfn ]  ,, 0]
 	/* STRING REACH MAX FUCKING LENGTH ROLF :D WTF, use second */
-//	[VarSet, commands_info,
+//	[VarSet, commandsinfo,
 //		 [StrMerge,
 //
 //			/*
@@ -143,20 +143,20 @@
 	/*------------------------------------------------------------------------------
 		TEST INFO
 	--------------------------------------------------------------------------------*/
-	//[Note, command_fn,, 0]
+	//[Note, commandfn,, 0]
 
-	//[Note, commands_info,, 0]
+	//[Note, commandsinfo,, 0]
 
 
 	/*------------------------------------------------------------------------------
 		TEST FUNCTIONS
 	--------------------------------------------------------------------------------*/
 
-	[Note, find_main_tool,, 0]
+	[Note, findmaintool,, 0]
 
-	//[Note, find_ztl_file,, 0] // WORKS UNTIL RENAME
+	//[Note, findztlfile,, 0] // WORKS UNTIL RENAME
 
-	//[Note, path_by_tool_index,, 0] // WORKS UNTIL RENAME
+	//[Note, pathbytoolindex,, 0] // WORKS UNTIL RENAME
 
 
 

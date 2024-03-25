@@ -3,10 +3,10 @@
   */
 [RoutineDef, loadToolPath
 ,
-	[VarLoad, $TOOL_LIST, $TOOLLISTFILE]
+	[VarLoad, TOOLLIST, TOOLLISTFILE]
 
-	[VarSet, $TOOL_PATH_LOADED, [Var, $TOOL_LIST([Var, $index]) ] ]
+	[VarSet, TOOLPATHLOADED, [Var, TOOLLIST([Var, index]) ] ]
 
 , // PARAMS
-	$index
+	index
 ]

@@ -7,16 +7,19 @@
 	[VarSet, index, -1] 	// index of main subtool
 	[VarSet, nameFound, 0] 	// index of main subtool
 	[VarSet, incrementFound, 0]
-
+	[VarSet, subtoolSctiveIndex, [SubToolGetActiveIndex]]
 
     [RoutineCall, getSavePath, path, index]
 
     [RoutineCall, moveSubtoolToTop, path, index]
 
-	[Note, [StrMerge, "[StrFind, DecimationMasterData, path ]: ", [StrFind, "DecimationMasterData", path ] ] ]
+	//[Note, [StrMerge, "[StrFind, DecimationMasterData, path ]: ", [StrFind, "DecimationMasterData", path ] ] ]
 
-	/* SANITIZE DECIMATION MASTER TOOL */
-	[If, [StrFind, "DecimationMasterData", path ] > -1,
+	/* SOME PLUGINS REDIRECT PATH ot their own directories
+
+		Lets put in back to track by laoding one of lates paths which tool name match current
+	*/
+	[If, [StrFind, "DecimationMasterData", path ] > -1 || [StrFind, "ZBRUSHMAXSYNC", path ] > -1,
 
 		[VarSet, saveToolName, [FileNameExtract, path, 2 ]] // name of tool to save
 
@@ -25,26 +28,26 @@
 
 			[RoutineCall, loadToolPath, i ]  // load last tool path
 
-			[VarSet, pathLoadedFileName, [FileNameExtract, $TOOL_PATH_LOADED, 2 ]] // name of tool to save
+			[VarSet, pathLoadedFileName, [FileNameExtract, TOOLPATHLOADED, 2 ]] // name of tool to save
 
 			[If, ( nameFound == 0 && (([StrLength, saveToolName]==[StrLength, pathLoadedFileName]) && ([StrFind, saveToolName, pathLoadedFileName] > -1)))
 			, // THEN
 
 
-				[Note, [StrMerge, "$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED ] ]
+				//[Note, [StrMerge, "TOOLPATHLOADED: ", TOOLPATHLOADED ] ]
 
-				[Note, [StrMerge,
-					"$TOOL_PATH_LOADED: ", $TOOL_PATH_LOADED, "\n\n",
-					"path: ", path
-				]]
+				//[Note, [StrMerge,
+				//	"TOOLPATHLOADED: ", TOOLPATHLOADED, "\n\n",
+				//	"path: ", path
+				//]]
 
 				[VarSet, nameFound, 1]
 
-				[VarSet, path, $TOOL_PATH_LOADED]
+				[VarSet, path, TOOLPATHLOADED]
 			]
 		,i]
 
-		[Note, [StrMerge, "DECIAMTION NEW PATH: ", path ] ]
+		//[Note, [StrMerge, "DECIAMTION NEW PATH: ", path ] ]
 
 	]
 
@@ -108,7 +111,7 @@
 
 			[FileNameSetNext, path ]
 
-			[Note, [StrMerge, "SAVE PATH TEST: ", path ] ]
+			//[Note, [StrMerge, "SAVE PATH TEST: ", path ] ]
 			[IPress, Tool:Save As]
 			[RoutineCall, saveToolPath, 0, path ]
 
@@ -116,6 +119,8 @@
 
 		]
 	]
+
+	[SubToolSelect, subtoolSctiveIndex ]
 
 
 , /* parameters and output */
@@ -157,10 +162,10 @@
 		/* MOVE MAIN SUBTOOL ON TOP BEFORE SAVE */
 		[If, [Var, index ] > 0,
 
-			[VarSet, number_subtool, (#index + 1) ]
+			[VarSet, numbersubtool, (#index + 1) ]
 
 			/* ASK FOR COMFIRM BEFORE MOVE */
-            [If, [MessageYesNo, [StrMerge, "MAIN SUBTOOL '", [FileNameExtract, path, 2 ], "' is ", number_subtool,  ". subtool in list.                                  MOVE THIS SUBTOOL TO TOP BEFORE SAVE ? " ]  ],
+            [If, [MessageYesNo, [StrMerge, "MAIN SUBTOOL '", [FileNameExtract, path, 2 ], "' is ", numbersubtool,  ". subtool in list.                                  MOVE THIS SUBTOOL TO TOP BEFORE SAVE ? " ]  ],
 
 				[SubToolSelect, [Var, index] ]
 
@@ -185,8 +190,8 @@
 --------------------------------------------------------------------------------*/
 [RoutineDef, searchForFilepathInSubTools
 ,
-	//[VarSet, xname_subtool, ]
-	//[VarSet, current_subtool_path, ]
+	//[VarSet, xnamesubtool, ]
+	//[VarSet, currentsubtoolpath, ]
 
 	[VarSet, ismaintool,  0 ]
 
@@ -228,14 +233,15 @@
 ----------------------------------------------------------------------------------------------------------*/
 [RoutineDef, isCurrentSubtoolMain
 ,
-	[VarSet, xname_subtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
-	[VarSet, current_subtool_path, [IGetTitle, Tool:Current Tool]]
+	[VarSet, xnamesubtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
+	[VarSet, currentsubtoolpath, [IGetTitle, Tool:Current Tool]]
 
-	[VarSet, ismaintool, (([StrLength, xname_subtool]!=[StrLength, current_subtool_path]) && ([StrFind, xname_subtool, current_subtool_path] > 0))]
+	//[VarSet, ismaintool, (([StrLength, xnamesubtool]!=[StrLength, currentsubtoolpath]) && ([StrFind, xnamesubtool, currentsubtoolpath] > 0))]
+	[VarSet, ismaintool, ([StrLength, xnamesubtool] > 0 && ([StrLength, xnamesubtool]!=[StrLength, currentsubtoolpath]) && ([StrFind, xnamesubtool, currentsubtoolpath] > 0))]
 
 	//[Note, [StrMerge,
-	//	"xname_subtool: ", xname_subtool, "\n\n",
-	//	"current_subtool_path: ", current_subtool_path, "\n\n",
+	//	"xnamesubtool: ", xnamesubtool, "\n\n",
+	//	"currentsubtoolpath: ", currentsubtoolpath, "\n\n",
 	//	"ismaintool: ", ismaintool
 	//]]
 ,
@@ -260,16 +266,16 @@
 
 [RoutineDef, searchForSubtoolByLastTypedPath
 ,
-	[VarSet, name_last_used, [FileNameExtract, [FileNameGetLastTyped], 2]]
-	[VarSet, ext_last_used,  [FileNameExtract, [FileNameGetLastTyped], 4]]
+	[VarSet, namelastused, [FileNameExtract, [FileNameGetLastTyped], 2]]
+	[VarSet, extlastused,  [FileNameExtract, [FileNameGetLastTyped], 4]]
 
-	[VarSet, ztl_ext, ".ztl"]
+	[VarSet, ztlext, ".ztl"]
 
-	[VarSet, last_file_is_ztl, (([StrLength, ext_last_used]==[StrLength, ztl_ext]) && ([StrFind, ext_last_used, ztl_ext] > -1))]
+	[VarSet, lastfileisztl, (([StrLength, extlastused]==[StrLength, ztlext]) && ([StrFind, extlastused, ztlext] > -1))]
 
 	/* IF PATH TO FILE IS ".ztl" */
-	[If, (([StrLength, ext_last_used]==[StrLength, ztl_ext]) && ([StrFind, ext_last_used, ztl_ext] > -1)) == 1
-	//[If, [Var, last_file_is_ztl]
+	[If, (([StrLength, extlastused]==[StrLength, ztlext]) && ([StrFind, extlastused, ztlext] > -1)) == 1
+	//[If, [Var, lastfileisztl]
 	, // THEN
 		[VarSet, path, [FileNameGetLastTyped]]
 
@@ -283,12 +289,12 @@
 				[SubToolSelect, i ]
 
 				/* COMPARE FILENAME AND SUBTOOL NAME */
-				[VarSet, xname_subtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
+				[VarSet, xnamesubtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
 
-				[VarSet, found_subtool, (([StrLength, xname_subtool]==[StrLength, name_last_used]) && ([StrFind, xname_subtool, name_last_used] > -1))]
+				[VarSet, foundsubtool, (([StrLength, xnamesubtool]==[StrLength, namelastused]) && ([StrFind, xnamesubtool, namelastused] > -1))]
 
 				/* GET SUBTOOL INDEX IF FOUND  */
-				[If,  ( [Var, found_subtool] > 0 ),
+				[If,  ( [Var, foundsubtool] > 0 ),
 					[VarSet, index, i ]]
 			]
 

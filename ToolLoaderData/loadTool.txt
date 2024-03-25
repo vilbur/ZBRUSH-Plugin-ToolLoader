@@ -1,27 +1,27 @@
-/** load Tool from \tool_list.zvr
+/** load Tool from \toollist.zvr
   *
-  * @param integer $index of tool in file to load, index 0 is last used tool
+  * @param integer index of tool in file to load, index 0 is last used tool
   *
   *
   */
 [RoutineDef, loadTool
 ,
-	[RoutineCall, loadToolPath, $index ]
+	[RoutineCall, loadToolPath, index ]
 
-	[If, [FileExists, $TOOL_PATH_LOADED]
+	[If, [FileExists, TOOLPATHLOADED]
 	, // THEN
-		[RoutineCall, loadToolToViewport, $TOOL_PATH_LOADED]
+		[RoutineCall, loadToolToViewport, TOOLPATHLOADED]
 
-		[Note, [StrMerge, "TOOL LOADED\n\nDIR: ", [FileNameExtract, $TOOL_PATH_LOADED, 1 ], "\n\nTOOL: ", [FileNameExtract, $TOOL_PATH_LOADED, 2 ] ] ]
+		[Note, [StrMerge, "TOOL LOADED\n\nDIR: ", [FileNameExtract, TOOLPATHLOADED, 1 ], "\n\nTOOL: ", [FileNameExtract, TOOLPATHLOADED, 2 ] ] ]
 
 	, // ELSE
-		[VarSet, $TOOL_LIST([Var, $index]), ""]
+		[VarSet, TOOLLIST([Var, index]), ""]
 
-		[RoutineCall, disableButton, $index]
+		[RoutineCall, disableButton, index]
 
-		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, $TOOL_PATH_LOADED, 2+4]],, 0.5]
+		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, TOOLPATHLOADED, 2+4]],, 0.5]
 	]
 
 , // PARAMS
-	$index
+	index
 ]

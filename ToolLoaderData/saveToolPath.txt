@@ -3,12 +3,12 @@
   */
 [RoutineDef, saveToolPath
 ,	
-	[VarSet, $TOOL_LIST([Var, $index]), $tool_path]
+	[VarSet, TOOLLIST([Var, index]), toolpath]
 	
-	[VarSave, $TOOL_LIST, $TOOLLISTFILE ]
+	[VarSave, TOOLLIST, TOOLLISTFILE ]
 
-	//[Note, [StrMerge, "Tool path saved", $tool_path ] ]
+	//[Note, [StrMerge, "Tool path saved", toolpath ] ]
 	
 , // PARAMS
-	$index, $tool_path
+	index, toolpath
 ]
