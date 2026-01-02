@@ -1,9 +1,27 @@
+/*------------------------------------------------------------------------------
+	SIZES OF UI CONTROLS
+--------------------------------------------------------------------------------*/
+[VarSet, DEF,	24]
+[VarSet, MIN,	28]
+[VarSet, MID,	36]
+[VarSet, BIG,	48]
+
+[VarSet, W1,	32]
+[VarSet, W2,	48]
+[VarSet, W3,	64]
+[VarSet, W4,	96]
+[VarSet, W5,	192]
+[VarSet, FULL,	384]
+
+/** CREATE MENU
+  *	
+  */
 [IPalette, PLUGINNENU ]
 
 /** LOAD LAST TOOL
   *
   */
-[IButton,  [StrMerge, CONTROLSPATH, "Load L A S T"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, 48]
+[IButton,  [StrMerge, CONTROLSPATH, "Load L A S T"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, #BIG]
 
 /** LOAD PREVIOUS TOOL
 *
@@ -22,7 +40,7 @@
 
 	[Note, [StrMerge, "PREVIOUS TOOL LAODED:\n\n", subtoolname ] ]
 
-,, 96,,, 48]
+,, #W4,,, #BIG]
 
 /* LOAD TOOL
 */
@@ -37,7 +55,7 @@
 		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
 
 
-,, 96,,, 48]
+,, #W4,,, #BIG]
 
 
 
@@ -48,7 +66,7 @@
 ,
 	[RoutineCall, saveToolBySubtool, 0 ]
 
-,, 96,,, 48]
+,, #W4,,, #BIG]
 
 
 
@@ -58,7 +76,7 @@
 ,
 	[RoutineCall, saveToolBySubtool, 1 ]
 
-,, 96,,, 48]
+,, #W4,,, #BIG]
 
 
 /* SAVE AS
@@ -76,20 +94,20 @@
 		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
 
 
-,, 96,,, 48]
+,, #W4,,, #BIG]
 
 
 /** GET \ LOAD TOOL BUTTONS
   *
   */
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 1"],	"Get tool",	[RoutineCall, getNewTool,	1 ],,,,,	48]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(1), 2]],	[RoutineCall, loadTool,	1 ], 1,,,,	48]
+[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 1"],	"Get tool",	[RoutineCall, getNewTool,	1 ],,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(1), 2]],	[RoutineCall, loadTool,	1 ], 1,,,,	#BIG]
 
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 2"],	"Get tool",	[RoutineCall, getNewTool,	2 ],,,,,	48]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 2"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(2), 2]],	[RoutineCall, loadTool,	2 ], 1,,,,	48]
+[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 2"],	"Get tool",	[RoutineCall, getNewTool,	2 ],,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 2"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(2), 2]],	[RoutineCall, loadTool,	2 ], 1,,,,	#BIG]
 
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	48]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	48]
+[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	#BIG]
 
 
 
@@ -134,12 +152,12 @@
 [IButton, [StrMerge, CONTROLSPATH, "Load Sphere"], "LOAD DEFAULT SPHERE > set edit mode > convert to polymesh"
 ,
 	[RoutineCall, loadDefaultTool, "Sphere3D" ]
-,, 96,,, 32]
+,, #W4,,, 32]
 
-/**
+/** Delete subtool withFRCED CONFIRM MESSAGE
   *
   */
 [IButton, [StrMerge, CONTROLSPATH, "Delete"], "Delete curent Subtool"
 ,
 	[IKeyPress,'2',[IPress, Tool:SubTool:Delete]] // 2: Ok 3: always ok
-,, 96,,, 32]
+,, #W2,,, #MID ]
