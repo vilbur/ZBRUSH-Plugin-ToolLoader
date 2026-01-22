@@ -100,14 +100,17 @@
 /** GET \ LOAD TOOL BUTTONS
   *
   */
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 1"],	"Get tool",	[RoutineCall, getNewTool,	1 ],,,,,	#BIG]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(1), 2]],	[RoutineCall, loadTool,	1 ], 1,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 1"],	"Get tool 1",	[RoutineCall, getNewTool,	1 ],, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(1), 2]],	[RoutineCall, loadTool,	1 ], 1, 	#W3 + 8,,,	#MID]
 
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 2"],	"Get tool",	[RoutineCall, getNewTool,	2 ],,,,,	#BIG]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 2"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(2), 2]],	[RoutineCall, loadTool,	2 ], 1,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 2"],	"Get tool 2",	[RoutineCall, getNewTool,	2 ],, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 2"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(2), 2]],	[RoutineCall, loadTool,	2 ], 1, 	#W3 + 8,,,	#MID]
 
-[IButton,  [StrMerge, CONTROLSPATH, "Get Tool 3"],	"Get tool",	[RoutineCall, getNewTool,	3 ],,,,,	#BIG]
-[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1,,,,	#BIG]
+[IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 3"],	"Get tool 3",	[RoutineCall, getNewTool,	3 ],, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 3"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(3), 2]],	[RoutineCall, loadTool,	3 ], 1, 	#W3 + 8,,,	#MID]
+
+[IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 4"],	"Get tool 4",	[RoutineCall, getNewTool,	4 ],, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "Load Tool 4"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(4), 2]],	[RoutineCall, loadTool,	4 ], 1, 	#W3 + 8,,,	#MID]
 
 
 

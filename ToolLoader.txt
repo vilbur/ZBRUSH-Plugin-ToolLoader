@@ -1,3 +1,6 @@
+/* NUMBER OF SAVED TOOLS */
+[VarSet, NUMBEROFSAVEDTOOLS, 4 ] // !!! - IMPORTANT: DELETE FILE "toollist.zvr" IF VALUE IS CHANGED ( error prevence )
+
 /** IMPORTANT
   *
 
@@ -22,7 +25,7 @@
 
 [VarDef, TOOLPATHLOADED, ""]
 
-[VarSet, TOOLLISTLENGTH, 4 ]
+[VarSet, TOOLLISTLENGTH, NUMBEROFSAVEDTOOLS + 1 ]
 
 [VarDef, TOOLLIST([Var, TOOLLISTLENGTH]), ""] // index 0 is for last used tool
 [VarDef,	CONFIG(1) ]
