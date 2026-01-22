@@ -7,7 +7,7 @@
 	
 	[VarSave, TOOLLIST, TOOLLISTFILE ]
 
-	//[Note, [StrMerge, "Tool path saved", toolpath ] ]
+	[NoteBar, [StrMerge, "TOOL PATH SAVED", toolpath ] ]
 	
 , // PARAMS
 	index, toolpath

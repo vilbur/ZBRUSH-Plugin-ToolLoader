@@ -1,0 +1,30 @@
+/** escapePath
+  */
+[RoutineDef, escapePath
+,
+	//[Note, "escapePath"]
+	//[VarSet, inPath, "C:\\Users\\vilbur\\Documents\\ZBrush\\test.txt"]
+	[VarSet, escapedPath, ""]
+	[VarSet, i, 0]
+	[VarSet, len, [StrLength, inPath]]
+	
+	[Loop, len,
+		[VarSet, ch, [StrExtract, inPath, i, 1]]
+		[VarSet, slash, [StrFromAsc, 92 ] ]
+		
+		[VarSet, characterIsSlash, (([StrLength, ch]==[StrLength, slash ]) && ([StrFind, ch, slash ] > -1))]
+	
+		/*  */ 
+		[If,  #characterIsSlash == 1,
+			[VarSet, escapedPath, [StrMerge, escapedPath, "/"]]
+			
+		, // ELSE
+			[VarSet, escapedPath, [StrMerge, escapedPath, ch]]
+		]
+	
+		[VarInc, i]
+	]
+, // PARAMS
+	inPath
+]
+//[IButton, "escapePath()" , "", [RoutineCall, escapePath] ]

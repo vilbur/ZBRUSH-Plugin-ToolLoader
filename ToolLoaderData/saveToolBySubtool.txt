@@ -51,10 +51,9 @@
 
 	]
 
-
 	//[If, [Var, index ] < 0,  // DISABLE FOR DEV TESTING
 		/* ASK TO SAVE TO LAST KNOWN LOCATION, IF CANCEL then RESET save path */
-		[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ?                                                               ", path]],
+		[If, ! [MessageYesNo, [StrMerge, "SAVE TOOL ? ", path]],
 			[VarSet, path, ""]]
 	//]
 
@@ -115,7 +114,13 @@
 			[IPress, Tool:Save As]
 			[RoutineCall, saveToolPath, 0, path ]
 
-			[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", [FileNameExtract, path, 1 ], "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]
+		[VarDef, escapedPath, ""]
+	
+		[RoutineCall, escapePath, [FileNameExtract, path, 1 ]]
+			
+			
+			[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", escapedPath, "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]
+			//[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", [FileNameExtract, path, 1 ], "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]
 
 		]
 	]

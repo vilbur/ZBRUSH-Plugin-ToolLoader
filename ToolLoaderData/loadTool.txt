@@ -6,20 +6,24 @@
   */
 [RoutineDef, loadTool
 ,
-	[RoutineCall, loadToolPath, index ]
+	[VarDef, escapedPath, ""]
 
+	[RoutineCall, escapePath, [FileNameExtract, loadToolPath, 1 ]]
+	
+	[RoutineCall, loadToolPath, index ]
+	
 	[If, [FileExists, TOOLPATHLOADED]
 	, // THEN
 		[RoutineCall, loadToolToViewport, TOOLPATHLOADED]
 
-		[Note, [StrMerge, "TOOL LOADED\n\nDIR: ", [FileNameExtract, TOOLPATHLOADED, 1 ], "\n\nTOOL: ", [FileNameExtract, TOOLPATHLOADED, 2 ] ] ]
+		[Note, [StrMerge, "TOOL LOADED\n\nDIR: ", escapedPath, "\n\nTOOL: ", [FileNameExtract, TOOLPATHLOADED, 2 ] ] ]
 
 	, // ELSE
 		[VarSet, TOOLLIST([Var, index]), ""]
 
 		[RoutineCall, disableButton, index]
 
-		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, TOOLPATHLOADED, 2+4]],, 0.5]
+		[Note, [StrMerge, "TOOL DOES NOT EXISTS\n\n", [FileNameExtract, escapedPath, 2+4]],, 0.5]
 	]
 
 , // PARAMS

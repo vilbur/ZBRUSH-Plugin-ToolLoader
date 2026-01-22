@@ -35,6 +35,8 @@
 
 [VarSet, ZFILEUTILSDLL, [StrMerge, PLUGINDATAPATH, "\ZFileUtils64.dll"]]
 
+<zscriptinsert, "ToolLoaderData/escapePath.txt">	// "./ToolLoaderData/escapePath.txt"
+
 <zscriptinsert, "ToolLoaderData/getToolList.txt">	// "./ToolLoaderData/getNewToolList.txt"
 
 <zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
