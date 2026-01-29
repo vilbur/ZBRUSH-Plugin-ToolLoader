@@ -1,6 +1,9 @@
 /* NUMBER OF SAVED TOOLS */
 [VarSet, NUMBEROFSAVEDTOOLS, 4 ] // !!! - IMPORTANT: DELETE FILE "toollist.zvr" IF VALUE IS CHANGED ( error prevence )
 
+		[VarDef, escapedPath, ""]
+
+
 /** IMPORTANT
   *
 
@@ -45,6 +48,9 @@
 <zscriptinsert, "ToolLoaderData/saveToolPath.txt">	// "./ToolLoaderData/saveToolPath.txt"
 <zscriptinsert, "ToolLoaderData/loadToolPath.txt">	// "./ToolLoaderData/loadToolPath.txt"
 
+<zscriptinsert, "ToolLoaderData/saveTool.txt">	// "./ToolLoaderData/saveTool.txt"
+
+
 <zscriptinsert, "ToolLoaderData/getNewTool.txt">	// "./ToolLoaderData/getNewTool.txt"
 <zscriptinsert, "ToolLoaderData/loadTool.txt">	// "./ToolLoaderData/loadTool.txt"
 
@@ -53,6 +59,7 @@
 
 
 <zscriptinsert, "ToolLoaderData/loadDefaultTool.txt">	// "./ToolLoaderData/loadDefaultTool.txt"
+
 
 
 /* INIT TOOLLIST */

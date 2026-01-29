@@ -5,7 +5,7 @@
 ,
 	[VarSet, path, "" ]	// path to .ztl file
 	[VarSet, index, -1] 	// index of main subtool
-	[VarSet, nameFound, 0] 	// index of main subtool
+	[VarSet, nameFound, 0] 	// 
 	[VarSet, incrementFound, 0]
 	[VarSet, subtoolSctiveIndex, [SubToolGetActiveIndex]]
 
@@ -15,7 +15,7 @@
 
 	//[Note, [StrMerge, "[StrFind, DecimationMasterData, path ]: ", [StrFind, "DecimationMasterData", path ] ] ]
 
-	/* SOME PLUGINS REDIRECT PATH ot their own directories
+	/* SOME PLUGINS REDIRECT PATH to their own directories
 
 		Lets put in back to track by laoding one of lates paths which tool name match current
 	*/
@@ -60,13 +60,14 @@
 	/* IF PATH EXIST */
 	[If, [StrLength, path ] > 0,
 
-
+		/* ADD file extension */ 
 		[If, [StrFind, ".ztl", path ] == -1,
 			[VarSet, path, [StrMerge, path, ".ztl"]]]
 
 		[VarSet, pathNext, path ]
 
-		[If, (#increment > 0), // THEN add increamanetalnumber
+		/* ADD INCREMENT */ 
+		[If, (#increment > 0), // THEN add increamanetal number
 
 			/* SIMULATION OF FUCKIN WHILE LOOP -- loop then any increment file will be new */
 			[Loop, 10,
@@ -114,9 +115,9 @@
 			[IPress, Tool:Save As]
 			[RoutineCall, saveToolPath, 0, path ]
 
-		[VarDef, escapedPath, ""]
+			//[VarDef, escapedPath, ""]
 	
-		[RoutineCall, escapePath, [FileNameExtract, path, 1 ]]
+			[RoutineCall, escapePath, [FileNameExtract, path, 1 ]]
 			
 			
 			[Note, [StrMerge, "TOOL SAVED\n\nDIR: ", escapedPath, "\n\nTOOL: ", [FileNameExtract, path, 2 ] ] ]
@@ -129,17 +130,21 @@
 
 
 , /* parameters and output */
-	increment
+	increment /* 0|1 */
 ]
 
 
 /*------------------------------------------------------------------------------
 
-	• nth   subtool selected, names are same
+	1St subtool is named as file.
+	Possible states of SELECTED SUBTOOL and FILENAME
+	
+
+	• First subtool selected, names are same
 	• First subtool selected, names are different
 	• nth   subtool selected, names are different
-	• nth   subtool selected, subtool with tool neame not exists
-	• First subtool selected, names are same
+	• nth   subtool selected, names are same
+	• nth   subtool selected, subtool with tool name not exists
 
 --------------------------------------------------------------------------------*/
 
@@ -155,35 +160,6 @@
 , /* parameters and output */
 	path, index
 ]
-
-/** moveSubtoolToTop
-  */
-[RoutineDef, moveSubtoolToTop
-,
-	/* IF PATH EXISTS */
-	[If, [StrLength, path ] > 0,
-
-
-		/* MOVE MAIN SUBTOOL ON TOP BEFORE SAVE */
-		[If, [Var, index ] > 0,
-
-			[VarSet, numbersubtool, (#index + 1) ]
-
-			/* ASK FOR COMFIRM BEFORE MOVE */
-            [If, [MessageYesNo, [StrMerge, "MAIN SUBTOOL '", [FileNameExtract, path, 2 ], "' is ", numbersubtool,  ". subtool in list.                                  MOVE THIS SUBTOOL TO TOP BEFORE SAVE ? " ]  ],
-
-				[SubToolSelect, [Var, index] ]
-
-				[IKeyPress,SHIFT,[IPress,Tool:SubTool:MoveUp]]
-			]
-		]
-	]
-
-, /* parameters and output */
-	path, index
-]
-
-
 /*------------------------------------------------------------------------------
 	SEARCH FOR SUBTOOL WHICH HOLDS FILEPATH
 
@@ -207,7 +183,7 @@
 
 			[VarSet, ismaintool,  0 ]
 
-			[RoutineCall, isCurrentSubtoolMain, ismaintool ]
+			[RoutineCall, isCurrentSubtoolNameSameAsFilename, ismaintool ]
 
 			//[Note, [StrMerge, "Subtool: ", i,  "\n\nVAR: ismaintool", "\n\nVAL: ", ismaintool ] ]
 
@@ -227,6 +203,35 @@
 	path, index
 ]
 
+/** moveSubtoolToTop
+  */
+[RoutineDef, moveSubtoolToTop
+,
+	/* IF PATH EXISTS */
+	[If, [StrLength, path ] > 0,
+
+
+		/* MOVE MAIN SUBTOOL TO TOP BEFORE SAVE */
+		[If, [Var, index ] > 0,
+
+			[VarSet, numbersubtool, (#index + 1) ]
+
+			/* ASK FOR COMFIRM BEFORE MOVE */
+            [If, [MessageYesNo, [StrMerge, "MAIN SUBTOOL '", [FileNameExtract, path, 2 ], "' is ", numbersubtool,  ". subtool in list.                                  MOVE THIS SUBTOOL TO TOP BEFORE SAVE ? " ]  ],
+
+				[SubToolSelect, [Var, index] ]
+
+				[IKeyPress,SHIFT,[IPress,Tool:SubTool:MoveUp]]
+			]
+		]
+	]
+
+, /* parameters and output */
+	path, index
+]
+
+
+
 /*--------------------------------------------------------------------------------------------------------
 
 	FIND SUBTOOL MATCHING NAME OF .ztl FILE
@@ -236,7 +241,7 @@
 	but other subtools Returns its name
 
 ----------------------------------------------------------------------------------------------------------*/
-[RoutineDef, isCurrentSubtoolMain
+[RoutineDef, isCurrentSubtoolNameSameAsFilename
 ,
 	[VarSet, xnamesubtool, [FileNameExtract, [GetActiveToolPath], 2 ]]
 	[VarSet, currentsubtoolpath, [IGetTitle, Tool:Current Tool]]
@@ -263,9 +268,9 @@
 	2) Main subtool can be RENAMED
 
 	3) FileNameGetLastTyped must be path to ".ztl"
-	4) Subtool matching ".ztl" file msut exists
+	4) Subtool matching ".ztl" file must exists
 
-	@return fiepath and subtool inde3x
+	@return fiepath and subtool index
 
 ----------------------------------------------------------------------------------------------------------*/
 

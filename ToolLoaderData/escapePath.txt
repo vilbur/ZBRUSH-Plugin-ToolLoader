@@ -1,4 +1,8 @@
 /** escapePath
+  
+  	[VarDef, escapedPath, ""]
+
+  
   */
 [RoutineDef, escapePath
 ,
