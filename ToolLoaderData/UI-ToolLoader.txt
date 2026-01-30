@@ -97,9 +97,9 @@
 ,, #W4,,, #BIG]
 
 
-/** GET \ LOAD TOOL BUTTONS
-  *
-  */
+/*------------------------------------------------------------------------------
+	GET \ LOAD TOOL BUTTONS
+--------------------------------------------------------------------------------*/
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 1"],	"Get tool 1",	[RoutineCall, getNewTool,	1 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(1), 2]],	[RoutineCall, loadTool,	1 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 1"],	"Save 1"	, [RoutineCall, saveTool,	1 ],, 	#W1 + 4,,,	#MID]
@@ -117,6 +117,9 @@
 [IButton,  [StrMerge, CONTROLSPATH, "Save 4"],	"Save 4"	, [RoutineCall, saveTool,	4 ],, 	#W1 + 4,,,	#MID]
 
 
+/*------------------------------------------------------------------------------
+	OTHER BUTTONS
+--------------------------------------------------------------------------------*/
 
 /** RESET TOOLS
   *

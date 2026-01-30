@@ -1,5 +1,13 @@
 /**
-  *
+	Manage save tool as *.ztl file
+	
+	
+	If path is no 
+  
+	1st SUBTOOLL:
+		• Has name as ztl file
+		• Hold path to ztl file
+  
   */
 [RoutineDef, saveToolBySubtool
 ,
@@ -135,16 +143,19 @@
 
 
 /*------------------------------------------------------------------------------
-
-	1St subtool is named as file.
-	Possible states of SELECTED SUBTOOL and FILENAME
 	
-
-	• First subtool selected, names are same
-	• First subtool selected, names are different
-	• nth   subtool selected, names are different
-	• nth   subtool selected, names are same
-	• nth   subtool selected, subtool with tool name not exists
+	1st SUBTOOLL:
+		• Has name as ztl file
+		• Hold path to ztl file
+	
+	
+	Possible states of SELECTED SUBTOOL and FILENAME:
+	
+		• First subtool selected, names are same
+		• First subtool selected, names are different
+		• nth   subtool selected, names are different
+		• nth   subtool selected, names are same
+		• nth   subtool selected, subtool with tool name not exists
 
 --------------------------------------------------------------------------------*/
 
