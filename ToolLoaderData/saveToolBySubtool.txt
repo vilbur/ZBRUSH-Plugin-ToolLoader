@@ -25,14 +25,14 @@
 	, // THEN
         [VarSet, path, savePath ]	// path to .ztl file
 		
-		[RoutineCall, searchForFilepathInSubTools, path, index]
+         [RoutineCall, searchForSubtoolByPath, path, index]
 
 	, // ELSE
 	
 	    [RoutineCall, getSavePath, path, index]
 	]
-	
 
+	
     [RoutineCall, moveSubtoolToTop, path, index]
 
 	//[Note, [StrMerge, "[StrFind, DecimationMasterData, path ]: ", [StrFind, "DecimationMasterData", path ] ] ]
@@ -180,7 +180,7 @@
 
 	/* GET LAST TYPED FILE PATH IF CONNECTION BETWEEN FILE AND SUBTOOL EXIST */
 	[If, [StrLength, path ] == 0,
-         [RoutineCall, searchForSubtoolByLastTypedPath, path, index]]
+         [RoutineCall, searchForSubtoolByPath, path, index]]
 
 , /* parameters and output */
 	path, index
@@ -287,7 +287,10 @@
 
 /*--------------------------------------------------------------------------------------------------------
 
-	TRY GET LAST USED PATH AND SEARCH FOR SUBTOOL NAMED AS FILE
+	SEARCH FOR SUBTOOL NAMED AS AS FILE IN PATH
+
+	IF PATH NOT EXIST THEN: TRY GET LAST USED PATH
+	
 
 	1) Main subtool can be MOVED
 	2) Main subtool can be RENAMED
@@ -299,20 +302,28 @@
 
 ----------------------------------------------------------------------------------------------------------*/
 
-[RoutineDef, searchForSubtoolByLastTypedPath
+[RoutineDef, searchForSubtoolByPath
 ,
-	[VarSet, namelastused, [FileNameExtract, [FileNameGetLastTyped], 2]]
-	[VarSet, extlastused,  [FileNameExtract, [FileNameGetLastTyped], 4]]
+
+	/* GET LAST USED PATH */ 
+	[If, [StrLength, path ] == 0
+	, // THEN
+		[VarSet, path, [FileNameGetLastTyped]]
+	]
+	
+	
+	[VarSet, namelastused, [FileNameExtract, path, 2]]
+	[VarSet, extlastused,  [FileNameExtract, path, 4]]
 
 	[VarSet, ztlext, ".ztl"]
 
 	[VarSet, lastfileisztl, (([StrLength, extlastused]==[StrLength, ztlext]) && ([StrFind, extlastused, ztlext] > -1))]
 
+
 	/* IF PATH TO FILE IS ".ztl" */
 	[If, (([StrLength, extlastused]==[StrLength, ztlext]) && ([StrFind, extlastused, ztlext] > -1)) == 1
 	//[If, [Var, lastfileisztl]
 	, // THEN
-		[VarSet, path, [FileNameGetLastTyped]]
 
 		[SubToolSelect, 0]
 
