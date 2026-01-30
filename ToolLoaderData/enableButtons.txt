@@ -5,6 +5,10 @@
 	[If, [Var, index] > 0
 	, // If not "Load Last Tool" button
 		[IEnable, [StrMerge, CONTROLSPATH, "Load Tool ", index] ]
+	
+		[IEnable, [StrMerge, CONTROLSPATH, "Save ", index] ]
+		
+		[IEnable, [StrMerge, CONTROLSPATH, "  X    path ", index] ]
 	]
 , // PARAMS
 	index
@@ -17,6 +21,10 @@
 	[If, [Var, index] > 0
 	, // If not "Load Last Tool" button
 		[IDisable, [StrMerge, CONTROLSPATH, "Load Tool ", index] ]
+		
+		[IDisable, [StrMerge, CONTROLSPATH, "Save ", index] ]
+		
+		[IDisable, [StrMerge, CONTROLSPATH, "  X    path ", index] ]
 	]
 , // PARAMS
 	index

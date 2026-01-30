@@ -50,6 +50,7 @@
 
 <zscriptinsert, "ToolLoaderData/saveTool.txt">	// "./ToolLoaderData/saveTool.txt"
 
+<zscriptinsert, "ToolLoaderData/deletePath.txt">	// "./ToolLoaderData/deletePath.txt"
 
 <zscriptinsert, "ToolLoaderData/getNewTool.txt">	// "./ToolLoaderData/getNewTool.txt"
 <zscriptinsert, "ToolLoaderData/loadTool.txt">	// "./ToolLoaderData/loadTool.txt"
@@ -75,7 +76,9 @@
 /* SCRIPTS BELLOW USE TOOLLIST */
 <zscriptinsert, "ToolLoaderData/saveToolBySubtool.txt">	// "./ToolLoaderData/saveToolBySubtool.txt"
 <zscriptinsert, "ToolLoaderData/enableButtons.txt">	// "./ToolLoaderData/enableButtons.txt"
-<zscriptinsert, "ToolLoaderData/UI-ToolLoader.txt">	// "./ToolLoaderData/UI-ToolLoader.txt"
+<zscriptinsert, "ToolLoaderData/UI-save-load-buttons.txt">	// "./ToolLoaderData/UI-save-load-buttons.txt"
+<zscriptinsert, "ToolLoaderData/UI-load-tool-buttons.txt">	// "./ToolLoaderData/UI-load-tool-buttons.txt"
+<zscriptinsert, "ToolLoaderData/UI-orher-buttons.txt">	// "./ToolLoaderData/UI-orher-buttons.txt"
 
 
 [RoutineCall, enableButtons]

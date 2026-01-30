@@ -4,18 +4,29 @@
 [RoutineDef, getNewTool
 ,
 	//[Note, "getNewTool"]
-	
-	[VarSet, toolpath, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
-	
-	[If, [StrLength,toolpath ] > 0
-	, // THEN LOAD TOOL
+	[VarSet, toolpath, #TOOLLIST(#index) ]
+
+	[If, [StrLength, toolpath ] == 0
+	, // BROWSE PATH TO TOOL AND LOAD
+		[VarSet, toolpath, [FileNameAsk, "ZTL(*.ztl)", , "Please select a tool to load..."]]
 		
-		[RoutineCall, saveToolPath, index, toolpath ]
+		[If, [StrLength,toolpath ] > 0
+		, // THEN LOAD TOOL
+			
+			[RoutineCall, saveToolPath, index, toolpath ]
+			
+			[RoutineCall, enableButton, index]
+			
+			[RoutineCall, loadToolToViewport, toolpath]
+		]
 		
-		[RoutineCall, enableButton, index]
-		
-		[RoutineCall, loadToolToViewport, toolpath]
+	, // ELSE
+		[RoutineCall, escapePath, toolpath ]
+
+		[Note, escapedPath,, 0]
+
 	]
+	
 	
 , // PARAMS
 	index

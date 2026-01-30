@@ -1,0 +1,28 @@
+/** deletePath
+  */
+[RoutineDef, deletePath
+,
+	//[Note, "deletePath"]
+	[VarSet, toolpath, #TOOLLIST(#index) ]
+	
+	[RoutineCall, escapePath, toolpath ]
+
+	[If, [StrLength, toolpath ] > 0,
+	 
+		[If, [MessageYesNo, [StrMerge, "Remove path to tool 1 ?\n\n", escapedPath ]] == 1
+			,// THEN 
+	
+			[RoutineCall, saveToolPath, index, "" ]
+		
+			[RoutineCall, disableButton, index]
+		]
+		
+	, // use first increment
+		[Note, [StrMerge, "Path ", index, " is empty" ] ,, 0]
+		
+	]	
+	
+, // PARAMS
+	index
+]
+//[IButton, "deletePath()" , "", [RoutineCall, deletePath] ]

@@ -4,7 +4,8 @@
 [RoutineDef, saveToolPath
 ,	
 	[VarSet, TOOLLIST([Var, index]), toolpath]
-	
+	//[VarSet,  #TOOLLIST(#index), toolpath ]
+
 	[VarSave, TOOLLIST, TOOLLISTFILE ]
 
 	[NoteBar, [StrMerge, "TOOL PATH SAVED", toolpath ] ]

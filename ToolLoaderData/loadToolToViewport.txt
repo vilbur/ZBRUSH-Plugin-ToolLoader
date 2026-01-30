@@ -31,6 +31,7 @@
 	// ,1 /* 1=Freeze UI then stroke ends */]
 
 	[IPress, Transform:Fit]
+	[IPress, Transform:Fit]
 
 	[RoutineCall, saveToolPath, 0, toolpath ] // Save as last used tool
 

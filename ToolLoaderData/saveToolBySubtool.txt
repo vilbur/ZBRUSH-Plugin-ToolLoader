@@ -152,7 +152,7 @@
 
 
 , /* parameters */
-	increment /* 0|1 */ , savePath
+	increment /* 0|1 */ , savePath /* LAST TYPED PATH IS USED IF EMPTY */ 
 ]
 
 

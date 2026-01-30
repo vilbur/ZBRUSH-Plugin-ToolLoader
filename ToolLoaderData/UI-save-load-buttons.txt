@@ -1,0 +1,104 @@
+/*------------------------------------------------------------------------------
+	SIZES OF UI CONTROLS
+--------------------------------------------------------------------------------*/
+[VarSet, DEF,	24]
+[VarSet, MIN,	28]
+[VarSet, MID,	36]
+[VarSet, BIG,	48]
+
+[VarSet, W1,	32]
+[VarSet, W2,	48]
+[VarSet, W3,	64]
+[VarSet, W4,	96]
+[VarSet, W5,	192]
+[VarSet, FULL,	384]
+
+/** CREATE MENU
+  *	
+  */
+[IPalette, PLUGINNENU ]
+
+/*------------------------------------------------------------------------------
+	LOAD TOOLS BUTTONS
+--------------------------------------------------------------------------------*/
+
+/** LOAD LAST TOOL
+  *
+  */
+[IButton,  [StrMerge, CONTROLSPATH, "Load L A S T"],	[StrMerge, "Load ", [FileNameExtract, TOOLLIST(0), 2]],	[RoutineCall, loadTool, 0 ],,,,, #BIG]
+
+/** LOAD PREVIOUS TOOL
+*
+*/
+[IButton, [StrMerge, CONTROLSPATH, "Prev Tool"], "Get previous tool"
+,
+	//[VarSet, toolpathnext, [StrMerge, [FileNameAdvance,[ToolGetPath, [IGet, Tool:ItemInfo] ], 2], ".ztl" ] ]
+
+    [VarSet, toolID, [ToolGetActiveIndex]]
+
+   //switch to the tool you want to append:
+   //(this code assumes that the append tool was the most recently loaded)
+   [ISet, Tool:Item Info,[IGetMax,Tool:Item Info]]
+
+	[VarSet, subtoolname, [StrExtract,  [IGetTitle,Tool:ItemInfo], 0, [StrLength,  [IGetTitle,Tool:ItemInfo] ] - 2 ] ] // Remove trailing "." from name
+
+	[Note, [StrMerge, "PREVIOUS TOOL LAODED:\n\n", subtoolname ] ]
+
+,, #W4,,, #BIG]
+
+/* LOAD TOOL
+*/
+[IButton, [StrMerge, CONTROLSPATH, "Load Tool"], "Save current tool\n\nKeep main tool on top"
+,
+	//[RoutineCall, saveToolBySubtool, 0 ]
+
+	[IPress,Tool:Load Tool]
+
+
+	[If, [StrLength, [FileNameGetLastTyped]  ] > 0,
+		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
+
+
+,, #W4,,, #BIG]
+
+
+/*------------------------------------------------------------------------------
+	SAVE TOOLS BUTTONS
+--------------------------------------------------------------------------------*/
+
+/* SAVE TOOL
+*/
+[IButton, [StrMerge, CONTROLSPATH, "Save Tool"], "Save current tool\n\nKeep main tool on top"
+,
+	[RoutineCall, saveToolBySubtool, 0 , "" ]
+
+,, #W4,,, #BIG]
+
+
+
+/* SAVE TOOL INCREMENT
+*/
+[IButton, [StrMerge, CONTROLSPATH, "S A V E +"], "Save current tool incremental\n\nKeep main tool on top"
+,
+	[RoutineCall, saveToolBySubtool, 1 , "" ]
+
+,, #W4,,, #BIG]
+
+
+/* SAVE AS
+*/
+[IButton, [StrMerge, CONTROLSPATH, "Save As"], "Save as current tool\n\nKeep main tool on top"
+,
+
+	[FileNameSetNext, ""]
+
+	[IPress,Tool:Save As]
+
+	//[Note, [StrMerge, "FileNameGetLastTyped: ", [FileNameGetLastTyped] ] ]
+
+	[If, [StrLength, [FileNameGetLastTyped]  ] > 0,
+		[RoutineCall, saveToolPath, 0, [FileNameGetLastTyped] ]]
+
+
+,, #W4,,, #BIG]
+

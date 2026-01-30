@@ -1,0 +1,55 @@
+
+/*------------------------------------------------------------------------------
+	OTHER BUTTONS
+--------------------------------------------------------------------------------*/
+
+/** RESET TOOLS
+  *
+  */
+[IButton, [StrMerge, CONTROLSPATH, "R"], "Reset mess in tools window"
+,
+
+	[If, [MessageOKCancel, "Reset Tools ?"]
+	, // THEN
+		[IKeyPress,'1', [IReset, 3]]
+
+	, // ELSE
+
+	]
+
+,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
+
+
+/** RESET TOOLS
+  *
+  */
+[IButton, [StrMerge, CONTROLSPATH, "C"], "Show path to current tool"
+,
+	[VarSet, namecurrenttool, [ToolGetPath ] ]
+	[VarSet, nametoolcurrent, [FileNameExtract, [ToolGetPath], 2]]
+	[VarSet, pathtoolcurrent, [ToolGetPath]]
+
+
+	[Note,
+
+		[Note, [StrMerge, "CURRENT TOOL SAVED\n\nDIR: ", [FileNameExtract, pathtoolcurrent, 1 ], "\n\nTOOL: ", [FileNameExtract, namecurrenttool, 2 ] ] ]
+	 ,, 0]
+
+,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
+
+
+/** LOAD SPHERE, set edit mode and convert to polymesh
+  *
+  */
+[IButton, [StrMerge, CONTROLSPATH, "Load Sphere"], "LOAD DEFAULT SPHERE > set edit mode > convert to polymesh"
+,
+	[RoutineCall, loadDefaultTool, "Sphere3D" ]
+,, #W4,,, 32]
+
+/** Delete subtool withFRCED CONFIRM MESSAGE
+  *
+  */
+[IButton, [StrMerge, CONTROLSPATH, "Delete"], "Delete curent Subtool"
+,
+	[IKeyPress,'2',[IPress, Tool:SubTool:Delete]] // 2: Ok 3: always ok
+,, #W2,,, #MID ]
