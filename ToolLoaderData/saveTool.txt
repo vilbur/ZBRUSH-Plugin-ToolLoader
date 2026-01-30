@@ -4,29 +4,13 @@
   */
 [RoutineDef, saveTool
 ,
-	//[Note, "saveTool"]
-	//[VarSet, toolpath, [Var, TOOLLIST([Var, index])] ]
-	
+
 	[VarSet, toolpath, #TOOLLIST(#index) ]
-	
 	
 	[RoutineCall, escapePath, toolpath ]
 	
-	//[Note, escapedPath ]
+	[RoutineCall, saveToolBySubtool, 0, toolpath ]
 
-	 
-	//[If, [MessageYesNo, [StrMerge, "SAVE FILE ", #escapedPath ]] == 0 
-	//, // THEN
-	//	
-	//	[FileNameSetNext, toolpath ]
-	//	
-		[IPress, Tool:Save As]
-	//	//[Note, [StrMerge, "SAVE PATH TEST: ", #toolpath ] ]
-	//	
-	//, // ELSE
-	//
-	//]
-	
 , // PARAMS
 	index
 ]

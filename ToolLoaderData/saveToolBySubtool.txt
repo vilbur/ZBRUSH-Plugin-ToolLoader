@@ -1,23 +1,37 @@
 /**
 	Manage save tool as *.ztl file
 	
+	MAIN SUBTOOL is 1st subtool when file is saved
 	
-	If path is no 
-  
-	1st SUBTOOLL:
+	MAIN SUBTOOLL:
 		• Has name as ztl file
 		• Hold path to ztl file
+	
+	
+	
   
   */
 [RoutineDef, saveToolBySubtool
 ,
-	[VarSet, path, "" ]	// path to .ztl file
-	[VarSet, index, -1] 	// index of main subtool
-	[VarSet, nameFound, 0] 	// 
+    [VarSet, path, "" ]	// path to .ztl file
+    [VarSet, index, -1]	// index of main subtool
+    [VarSet, nameFound, 0] 	// 
 	[VarSet, incrementFound, 0]
 	[VarSet, subtoolSctiveIndex, [SubToolGetActiveIndex]]
+	
+	//[Note, [StrLength, savePath ],, 0]
 
-    [RoutineCall, getSavePath, path, index]
+	[If, [StrLength, savePath ] > 0
+	, // THEN
+        [VarSet, path, savePath ]	// path to .ztl file
+		
+		[RoutineCall, searchForFilepathInSubTools, path, index]
+
+	, // ELSE
+	
+	    [RoutineCall, getSavePath, path, index]
+	]
+	
 
     [RoutineCall, moveSubtoolToTop, path, index]
 
@@ -137,8 +151,8 @@
 	[SubToolSelect, subtoolSctiveIndex ]
 
 
-, /* parameters and output */
-	increment /* 0|1 */
+, /* parameters */
+	increment /* 0|1 */ , savePath
 ]
 
 

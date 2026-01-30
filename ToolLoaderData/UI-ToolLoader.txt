@@ -18,6 +18,10 @@
   */
 [IPalette, PLUGINNENU ]
 
+/*------------------------------------------------------------------------------
+	LOAD TOOLS BUTTONS
+--------------------------------------------------------------------------------*/
+
 /** LOAD LAST TOOL
   *
   */
@@ -58,13 +62,15 @@
 ,, #W4,,, #BIG]
 
 
-
+/*------------------------------------------------------------------------------
+	SAVE TOOLS BUTTONS
+--------------------------------------------------------------------------------*/
 
 /* SAVE TOOL
 */
 [IButton, [StrMerge, CONTROLSPATH, "Save Tool"], "Save current tool\n\nKeep main tool on top"
 ,
-	[RoutineCall, saveToolBySubtool, 0 ]
+	[RoutineCall, saveToolBySubtool, 0 , "" ]
 
 ,, #W4,,, #BIG]
 
@@ -74,7 +80,7 @@
 */
 [IButton, [StrMerge, CONTROLSPATH, "S A V E +"], "Save current tool incremental\n\nKeep main tool on top"
 ,
-	[RoutineCall, saveToolBySubtool, 1 ]
+	[RoutineCall, saveToolBySubtool, 1 , "" ]
 
 ,, #W4,,, #BIG]
 
