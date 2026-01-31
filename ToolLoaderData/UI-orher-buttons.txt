@@ -38,12 +38,22 @@
 ,	/*Disabled*/,	32,	/*Hotkey CTRL+SHIFT+ALT+'Q' */,	/*Icon*/,	32]
 
 
+/** LOAD PLANE, set edit mode and convert to polymesh
+  *
+  */
+[IButton, [StrMerge, CONTROLSPATH, "Load Plane"], "LOAD DEFAULT PLANE > set edit mode > convert to polymesh"
+,
+	[RoutineCall, loadDefaultTool, "Plane3D" ]
+
+,, #W4,,, 32]
+
 /** LOAD SPHERE, set edit mode and convert to polymesh
   *
   */
 [IButton, [StrMerge, CONTROLSPATH, "Load Sphere"], "LOAD DEFAULT SPHERE > set edit mode > convert to polymesh"
 ,
 	[RoutineCall, loadDefaultTool, "Sphere3D" ]
+	
 ,, #W4,,, 32]
 
 /** Delete subtool withFRCED CONFIRM MESSAGE

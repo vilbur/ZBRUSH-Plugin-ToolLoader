@@ -7,68 +7,68 @@
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 1"],	"Get tool 1",	[RoutineCall, getNewTool,	1 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 1"],	"Load Tool 1",	[RoutineCall, loadTool,	1 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 1"],	"Save Tool 1",	[RoutineCall, saveTool,	1 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 1"],	"Delete path info 1",	[RoutineCall, deletePath,	1 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 1"],	"Delete path 1",	[RoutineCall, deletePath,	1 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 1"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 2"],	"Get tool 2",	[RoutineCall, getNewTool,	2 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 2"],	"Load Tool 2",	[RoutineCall, loadTool,	2 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 2"],	"Save Tool 2",	[RoutineCall, saveTool,	2 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 2"],	"Delete path info 2",	[RoutineCall, deletePath,	2 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 2"],	"Delete path 2",	[RoutineCall, deletePath,	2 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 2"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 3"],	"Get tool 3",	[RoutineCall, getNewTool,	3 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 3"],	"Load Tool 3",	[RoutineCall, loadTool,	3 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 3"],	"Save Tool 3",	[RoutineCall, saveTool,	3 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 3"],	"Delete path info 3",	[RoutineCall, deletePath,	3 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 3"],	"Delete path 3",	[RoutineCall, deletePath,	3 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 3"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 4"],	"Get tool 4",	[RoutineCall, getNewTool,	4 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 4"],	"Load Tool 4",	[RoutineCall, loadTool,	4 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 4"],	"Save Tool 4",	[RoutineCall, saveTool,	4 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 4"],	"Delete path info 4",	[RoutineCall, deletePath,	4 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 4"],	"Delete path 4",	[RoutineCall, deletePath,	4 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 4"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 5"],	"Get tool 5",	[RoutineCall, getNewTool,	5 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 5"],	"Load Tool 5",	[RoutineCall, loadTool,	5 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 5"],	"Save Tool 5",	[RoutineCall, saveTool,	5 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 5"],	"Delete path info 5",	[RoutineCall, deletePath,	5 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 5"],	"Delete path 5",	[RoutineCall, deletePath,	5 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 5"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 6"],	"Get tool 6",	[RoutineCall, getNewTool,	6 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 6"],	"Load Tool 6",	[RoutineCall, loadTool,	6 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 6"],	"Save Tool 6",	[RoutineCall, saveTool,	6 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 6"],	"Delete path info 6",	[RoutineCall, deletePath,	6 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 6"],	"Delete path 6",	[RoutineCall, deletePath,	6 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 6"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 7"],	"Get tool 7",	[RoutineCall, getNewTool,	7 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 7"],	"Load Tool 7",	[RoutineCall, loadTool,	7 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 7"],	"Save Tool 7",	[RoutineCall, saveTool,	7 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 7"],	"Delete path info 7",	[RoutineCall, deletePath,	7 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 7"],	"Delete path 7",	[RoutineCall, deletePath,	7 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 7"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 8"],	"Get tool 8",	[RoutineCall, getNewTool,	8 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 8"],	"Load Tool 8",	[RoutineCall, loadTool,	8 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 8"],	"Save Tool 8",	[RoutineCall, saveTool,	8 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 8"],	"Delete path info 8",	[RoutineCall, deletePath,	8 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 8"],	"Delete path 8",	[RoutineCall, deletePath,	8 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 8"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 9"],	"Get tool 9",	[RoutineCall, getNewTool,	9 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 9"],	"Load Tool 9",	[RoutineCall, loadTool,	9 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 9"],	"Save Tool 9",	[RoutineCall, saveTool,	9 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 9"],	"Delete path info 9",	[RoutineCall, deletePath,	9 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 9"],	"Delete path 9",	[RoutineCall, deletePath,	9 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 9"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]
 
 
 [IButton,  [StrMerge, CONTROLSPATH, "Get  Tool 10"],	"Get tool 10",	[RoutineCall, getNewTool,	10 ],, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Load Tool 10"],	"Load Tool 10",	[RoutineCall, loadTool,	10 ], 1, 	#W3 + 8,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "Save 10"],	"Save Tool 10",	[RoutineCall, saveTool,	10 ], 1, 	#W1 + 4,,,	#MID]
-[IButton,  [StrMerge, CONTROLSPATH, "  X    path 10"],	"Delete path info 10",	[RoutineCall, deletePath,	10 ], 1, 	#W1,,,	#MID]
+[IButton,  [StrMerge, CONTROLSPATH, "  X    path 10"],	"Delete path 10",	[RoutineCall, deletePath,	10 ], 1, 	#W1,,,	#MID]
 [IButton,  [StrMerge, CONTROLSPATH, "        space 10"],	"keep controls in rows",		   ,, 	#W1,,,	#MID]

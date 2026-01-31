@@ -21,6 +21,10 @@
 
 	[IPress,Tool:Make PolyMesh3D]
 
+	[IPress,Zplugin:UV Master:  Unwrap]
+	
+	//[IPress,Tool:UV Map:Flip U]
+	
 	[RoutineCall, renameSubtool, toolname]
 
 , // PARAMS
